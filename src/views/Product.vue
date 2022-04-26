@@ -1,0 +1,315 @@
+<template>
+  <div id="product">
+    <h1
+      class="text"
+      style="width: 100%; text-align: center; font-size: 35px; margin-top: 20px;"
+    >
+      DANH SÁCH SẢN PHẨM
+    </h1>
+    <div class="list-product">
+      <div class="category">
+        <h4
+          class="text"
+          style="font-size: 24px; width: 100%;"
+        >
+          Categories
+        </h4>
+        <b-dropdown-divider style="width: 100%;" />
+        <b-nav
+          style="width: 100%;"
+          vertical
+        >
+          <b-nav-item
+            @click="allProduct"
+          >
+            All Product
+          </b-nav-item>
+          <b-nav-item
+            v-for="category in listCategories"
+            :key="category._id"
+            @click="handleCategory(category._id)"
+          >
+            {{ category.name }}
+          </b-nav-item>
+        </b-nav>
+      </div>
+      <div
+        class="content"
+      >
+        <!-- Search -->
+        <b-input-group class="input-group-merge ml-1 w-100 round">
+          <b-input-group-prepend is-text>
+            <feather-icon
+              icon="SearchIcon"
+              class="text-muted"
+            />
+          </b-input-group-prepend>
+          <b-form-input
+            v-model="searchQuery"
+            placeholder="Search..."
+            @keyup="filteredChatsContacts"
+          />
+        </b-input-group>
+
+        <div
+          class="list_product"
+        >
+          <div
+            v-for="product in listProduct.products"
+            :key="product._id"
+            class="product"
+          >
+            <div
+              class="content"
+              @click="openProduct(product._id)"
+            >
+              <img
+                :src="product.images[0].url"
+                alt=""
+                class="img_product"
+              >
+              <p
+                class="name_product"
+              >
+                {{ product.title }}
+              </p>
+              <h3 class="price_product">
+                {{ new Intl.NumberFormat().format(product.price) }}₫
+              </h3>
+            </div>
+            <button
+              class="add_cart"
+              @click="addCart(product._id)"
+            >
+              Add to cart
+            </button>
+          </div>
+        </div>
+
+        <!-- Phan trang -->
+        <!-- <b-pagination-nav
+          :link-gen="linkGen"
+          :page-gen="listProduct.page"
+          :number-of-pages="listProduct.totalPage"
+          use-router
+          class="mb-0"
+        /> -->
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import {
+  BNav,
+  BNavItem,
+  BDropdownDivider,
+  BInputGroup,
+  BInputGroupPrepend,
+  BFormInput,
+  // BPaginationNav,
+  // BInputGroupAppend,
+  // BButton,
+} from 'bootstrap-vue'
+import { required, email } from '@validations'
+import { mapActions, mapGetters, mapState } from 'vuex'
+// import DetailProduct from './DetailProduct.vue'
+
+export default {
+  name: 'Product',
+  components: {
+    BNav,
+    BNavItem,
+    BDropdownDivider,
+    BInputGroup,
+    BInputGroupPrepend,
+    BFormInput,
+    // BPaginationNav,
+    // BInputGroupAppend,
+    // BButton,
+    // DetailProduct,
+  },
+  data() {
+    return {
+      idProduct: null,
+      required,
+      email,
+      activeItem: '',
+      searchQuery: '',
+      category: '',
+      page: 1,
+    }
+  },
+  computed: {
+    ...mapState(['productCategory']),
+    ...mapGetters(['listCategories', 'listProduct']),
+    handelPrice() {
+      console.log(this.listProduct.products)
+      let arr = []
+      arr = this.listProduct.products.map(item => {
+        // eslint-disable-next-line no-param-reassign
+        item.price = new Intl.NumberFormat().format(item.price)
+        return item.price
+      })
+      return arr
+    },
+  },
+  created() {
+    // const number = 1234567
+    // console.log(new Intl.NumberFormat().format(number))
+    this.getCategory()
+    this.getProduct()
+  },
+  methods: {
+    ...mapActions(['getCategory', 'getProduct', 'getAllProduct']),
+
+    searchFilterFunction(contact) {
+      console.log(contact.title)
+      const search = contact.title.toLowerCase().includes(this.searchQuery.trim().toLowerCase())
+      return search
+    },
+    filteredChatsContacts() {
+      if (this.searchQuery.length > 0) {
+        this.listProduct.products = this.listProduct.products.filter(this.searchFilterFunction)
+        console.log(this.listProduct)
+      } else if (this.searchQuery.length === 0) {
+        this.getProduct()
+      }
+    },
+
+    async pageGen(pageNum) {
+      console.log(pageNum, 'p')
+    },
+
+    async linkGen(pageNum) {
+      // await this.getProductPage(pageNum)
+      return pageNum === 1 ? '?' : `?page=${pageNum}`
+    },
+    async getProductPage(pageNum) {
+      await this.getProduct(pageNum)
+      console.log(this.listProduct)
+    },
+
+    async handleCategory(idCategory) {
+      await this.getAllProduct()
+      this.listProduct.products = this.listProduct.products.filter(item => item.category === idCategory)
+      console.log(this.listProduct.products)
+      return this.listProduct.products
+    },
+    allProduct() {
+      this.getProduct()
+    },
+    // handleCategory(idCategory) {
+    //   this.getProduct().then(() => {
+    //     this.listProduct.products = this.listProduct.products.filter(item => item.category === idCategory)
+    //     console.log(this.listProduct.products)
+    //     return this.listProduct.products
+    //   })
+    // },
+
+    isActive(menuItem) {
+      return this.activeItem === menuItem
+    },
+    setActive(menuItem) {
+      this.activeItem = menuItem
+    },
+    openProduct(idProduct) {
+      console.log(idProduct)
+      // eslint-disable-next-line no-underscore-dangle
+      this.listProduct.products._id = idProduct
+      this.$router.push(`/product/${idProduct}`)
+    },
+
+    // addCard(idProduct){
+
+    // }
+  },
+}
+</script>
+
+<style lang="scss" scoped>
+
+.text {
+  color: #61492e;
+}
+li {
+  list-style-type: none;
+}
+#product{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 68px 7% 10px 7% !important;
+}
+.list-product {
+  display: flex;
+  width: 100%;
+}
+.category {
+  width: 17%;
+  height: auto;
+  margin-top: 50px;
+  /* display: flex; */
+  flex: 1;
+  flex-wrap: wrap;
+}
+.nav-item > a {
+  font-size: 18px;
+}
+.content{
+  /* display: flex; */
+  flex: 5;
+  .input-group-merge{
+    width: 50% !important;
+    margin: 0px 0px 10px 50% !important;
+  }
+  .list_product{
+    /* position: absolute; */
+    display: flex;
+    background-color: #fff;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    border-radius: 15px;
+  }
+}
+
+.product{
+  /* display: flex; */
+  width: 21%;
+  justify-content: space-around;
+  margin:20px 19px;
+}
+.product:hover{
+  cursor: pointer;
+  border: 1px solid #c0c0c0;
+  box-shadow: 0px 0px 2px 2px #c0c0c0;
+}
+.content {
+  margin: 0px !important;
+}
+.img_product{
+  width: 100%;
+  height: auto;
+}
+.name_product{
+  font-size: 15px;
+  margin:0px 8px !important;
+}
+.price_product{
+  /* font-size: 12px; */
+  color: #c92127;
+  margin-left: 10px;
+}
+.add_cart{
+  margin-left: 10px;
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  background-color: rgb(97, 73, 46);
+  color: white;
+  font-size: 12px;
+}
+.add_cart:hover{
+  border: 1px solid white;
+  padding: 7px;
+}
+</style>
