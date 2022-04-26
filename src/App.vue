@@ -85,7 +85,7 @@ export default {
       timeout: 3000,
       transition: 'Vue-Toastification__fade',
     })
-
+// ss
     // Set Window Width in store
     store.commit('app/UPDATE_WINDOW_WIDTH', window.innerWidth)
     const { width: windowWidth } = useWindowSize()
