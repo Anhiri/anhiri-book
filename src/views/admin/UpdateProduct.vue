@@ -257,7 +257,7 @@ export default {
         category,
         total,
       }
-      console.log('vue', this.images)
+      console.log('vue', this.images, images)
       this.updateProduct(productUpdate)
     },
 

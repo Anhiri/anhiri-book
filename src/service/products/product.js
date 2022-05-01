@@ -57,8 +57,21 @@ class Products {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  updateProduct(product) {
-    console.log('service', product)
+  async convertImageToBase64FromUrl(url) {
+    const image = await axios.get(url, { responseType: 'arraybuffer' })
+    const raw = Buffer.from(image.data).toString('base64')
+    return `data:${image.headers['content-type']};base64,${raw}`
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async updateProduct(product) {
+    const images = await Promise.all(product.images.map(async image => {
+      if (typeof image === 'object') {
+        return this.convertImageToBase64FromUrl(image.url)
+      }
+
+      return image
+    }))
     const token = localStorage.getItem('user')
     return axios.put(`${API_URL}/api/products/${product.idProduct}`, {
       idProduct: product.idProduct,
@@ -68,7 +81,7 @@ class Products {
       price: product.price,
       description: product.description,
       content: product.content,
-      images: product.images,
+      images,
       category: product.category,
       total: product.total,
     },
