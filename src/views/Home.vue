@@ -1,17 +1,38 @@
 <template>
   <div id="home">
     <div class="banner">
-      <img
-        class="banner_img"
-        src="https://thientonphatquang.com/wp-content/uploads/2018/06/banner-201806-1.jpg"
-        alt="banner"
+      <swiper
+        class="swiper-navigations"
+        :options="swiperOptions"
+        :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
       >
+        <swiper-slide
+          v-for="(data,index) in swiperData"
+          :key="index"
+        >
+          <b-img
+            :src="data.img"
+            fluid
+            style="width: 100%; height: 400px;"
+          />
+        </swiper-slide>
+
+        <!-- Add Arrows -->
+        <div
+          slot="button-next"
+          class="swiper-button-next"
+        />
+        <div
+          slot="button-prev"
+          class="swiper-button-prev"
+        />
+      </swiper>
       <button
         class="banner_btn"
         style="  background-color: #3f7652;
                   border-radius: 30px;
                   border: none;"
-        @click="buyNow"
+        @click="$router.push('/product')"
       >MUA NGAY
         <feather-icon
           style="color: #fff"
@@ -32,7 +53,10 @@
             :key="seller._id"
             class="product"
           >
-            <div class="content">
+            <div
+              class="content"
+              @click="openProductBestSeller(seller._id)"
+            >
               <img
                 :src="seller.images[0].url"
                 alt=""
@@ -64,7 +88,10 @@
             :key="product._id"
             class="product"
           >
-            <div class="content">
+            <div
+              class="content"
+              @click="openNewProduct(product._id)"
+            >
               <img
                 :src="product.images[0].url"
                 alt=""
@@ -94,6 +121,7 @@
             v-ripple.400="'rgba(0, 0, 0, 0.15)'"
             class="btn"
             variant="outline-dark"
+            @click="$router.push('/about')"
           >
             Đọc thêm
           </b-button>
@@ -109,7 +137,9 @@
         </h1>
         <div class="details_product">
           <div class="details">
-            <p class="name_product"><b>Những Điều Từng Là Quý Giá</b></p>
+            <p class="name_product">
+              <b>Những Điều Từng Là Quý Giá</b>
+            </p>
             <p class="price_product">
               Giá: 86.000₫
             </p>
@@ -154,12 +184,15 @@
 </template>
 
 <script>
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
 import { mapActions, mapGetters } from 'vuex'
 import {
   BDropdownDivider,
+  BImg,
   // BInputGroupAppend,
   BButton,
 } from 'bootstrap-vue'
+import 'swiper/css/swiper.css'
 import Ripple from 'vue-ripple-directive'
 import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 
@@ -169,16 +202,34 @@ export default {
     FeatherIcon,
     BDropdownDivider,
     BButton,
+    Swiper,
+    SwiperSlide,
+    BImg,
   },
   directives: {
     Ripple,
   },
   data() {
     return {
+      /* eslint-disable global-require */
+      swiperData: [
+        { img: require('@/image/banner2.jpg') },
+        { img: require('@/image/banner7.webp') },
+        { img: require('@/image/banner4.png') },
+        { img: require('@/image/banner8.webp') },
+        { img: require('@/image/banner5.png') },
+      ],
+      /* eslint-disable global-require */
+      swiperOptions: {
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      },
     }
   },
   computed: {
-    ...mapGetters(['productBestSeller', 'newProducts']),
+    ...mapGetters(['productBestSeller', 'newProducts', 'listProduct']),
   },
   created() {
     this.getProductBestSeller()
@@ -186,8 +237,17 @@ export default {
   },
   methods: {
     ...mapActions(['getProductBestSeller', 'getNewProducts']),
-    buyNow() {
-      this.$router.push('/product')
+    openProductBestSeller(idProduct) {
+      console.log(idProduct)
+      // eslint-disable-next-line no-underscore-dangle
+      this.productBestSeller.products._id = idProduct
+      this.$router.push(`/product/${idProduct}`)
+    },
+    openNewProduct(idProduct) {
+      console.log(idProduct)
+      // eslint-disable-next-line no-underscore-dangle
+      this.newProducts.products._id = idProduct
+      this.$router.push(`/product/${idProduct}`)
     },
   },
 }
@@ -205,12 +265,13 @@ export default {
   display: flex;
   position: relative;
   width: 100%;
+  height: 400px;
   justify-content: center;
   align-items: center;
 }
 .banner .banner_img{
   width: 100%;
-  border-radius: 0px 0px 15px 15px ;
+  border-radius: 0px 0px 7px 7px ;
 }
 .banner .banner_btn{
   z-index: 1;
@@ -229,7 +290,7 @@ export default {
   background-color:#fff;
   display: flex;
   flex-wrap: wrap;
-  border-radius: 15px;
+  border-radius:7px;
   .title{
     // justify-content: center;
     color: #61492e;
@@ -243,7 +304,7 @@ export default {
     background-color: #fff;
     flex-basis: 100%;
     flex-wrap: wrap;
-    border-radius: 15px;
+    border-radius: 7px;
     .product{
       /* display: flex; */
       width: 21%;
@@ -293,7 +354,7 @@ export default {
   background-color:#fff;
   display: flex;
   flex-wrap: wrap;
-  border-radius: 15px;
+  border-radius: 7px;
   .title{
     text-align: center;
     color: #61492e;
@@ -306,7 +367,7 @@ export default {
     background-color: #fff;
     flex-basis: 100%;
     flex-wrap: wrap;
-    border-radius: 15px;
+    border-radius: 7px;
     .product{
       /* display: flex; */
       justify-content: space-around;
@@ -373,7 +434,7 @@ export default {
 .comming_soon{
   position: relative;
   margin-top: 30px;
-  border-radius: 15px;
+  border-radius: 7px;
   background-color: #fff;
   display: flex;
   flex-wrap: wrap;

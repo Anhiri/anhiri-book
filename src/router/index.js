@@ -24,20 +24,7 @@ const router = new VueRouter({
         ],
       },
     },
-    {
-      path: '/Admin',
-      name: 'home-admin',
-      component: () => import('@/views/admin/HomeAdmin.vue'),
-      meta: {
-        pageTitle: 'Home',
-        breadcrumb: [
-          {
-            text: 'Home',
-            active: true,
-          },
-        ],
-      },
-    },
+
     {
       path: '/product',
       name: 'product',
@@ -62,6 +49,64 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
+    {
+      path: '/cart',
+      name: 'cart',
+      component: () => import('@/views/Cart.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+
+    // admin
+    {
+      path: '/Admin',
+      name: 'home-admin',
+      component: () => import('@/views/admin/HomeAdmin.vue'),
+      meta: {
+        pageTitle: 'Home',
+        breadcrumb: [
+          {
+            text: 'Home',
+            active: true,
+          },
+        ],
+      },
+    },
+
+    {
+      path: '/addProduct',
+      name: 'addProduct',
+      component: () => import('@/views/admin/AddProduct.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+
+    {
+      path: '/update/product/:id',
+      name: 'updateProduct',
+      component: () => import('@/views/admin/UpdateProduct.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    {
+      path: '/handleCategory',
+      name: 'handleCategory',
+      component: () => import('@/views/admin/HandleCategory.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
+    // {
+    //   path: '/handleCategory',
+    //   name: 'handleCategory',
+    //   component: () => import('@/views/admin/HandleCategory.vue'),
+    //   meta: {
+    //     layout: 'full',
+    //   },
+    // },
 
     // footer
     {

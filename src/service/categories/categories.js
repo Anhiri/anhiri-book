@@ -9,6 +9,30 @@ class Categories {
     return axios.get(`${API_URL}/api/category`,
       { headers: { Authorization: token } })
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  addCategory(category) {
+    console.log('service', category)
+    const token = localStorage.getItem('user')
+    return axios.post(`${API_URL}/api/category`,
+      { name: category.name },
+      { headers: { Authorization: token } })
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  updateCategory(category) {
+    const token = localStorage.getItem('user')
+    return axios.put(`${API_URL}/api/category`,
+      { name: category.name },
+      { headers: { Authorization: token } })
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  deleteCategory(idCategory) {
+    const token = localStorage.getItem('user')
+    return axios.delete(`${API_URL}/api/category/${idCategory}`,
+      { headers: { Authorization: token } })
+  }
 }
 
 export default new Categories()

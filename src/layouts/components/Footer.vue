@@ -104,7 +104,7 @@ export default {
     margin: 20px 7% !important;
     background-color: #61492e;
     color: #fff;
-    border-radius: 15px 15px 0px 0px;
+    border-radius: 7px 7px 0px 0px;
     .about {
         flex: 1;
         margin: 30px 40px;

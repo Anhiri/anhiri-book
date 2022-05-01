@@ -1,16 +1,25 @@
 <template>
   <div id="product">
-    <h1
-      class="text"
-      style="width: 100%; text-align: center; font-size: 35px; margin-top: 20px;"
-    >
-      DANH SÁCH SẢN PHẨM
-    </h1>
+    <h2 class="content-header-title float-left pr-1 mb-0">
+      Anh Iri
+    </h2>
+    <b-breadcrumb class="breadcrumb-slash">
+      <b-breadcrumb-item @click="$router.push('/')">
+        <feather-icon
+          icon="HomeIcon"
+          size="20"
+          class="align-middle icon-shopping"
+        />
+      </b-breadcrumb-item>
+      <b-breadcrumb-item active>
+        Product
+      </b-breadcrumb-item>
+    </b-breadcrumb>
     <div class="list-product">
       <div class="category">
         <h4
           class="text"
-          style="font-size: 24px; width: 100%;"
+          style="font-size: 24px; width: 100%; margin-left: 20px; margin-top: 12px;"
         >
           Categories
         </h4>
@@ -60,7 +69,7 @@
             class="product"
           >
             <div
-              class="content"
+              class="content-p"
               @click="openProduct(product._id)"
             >
               <img
@@ -79,7 +88,7 @@
             </div>
             <button
               class="add_cart"
-              @click="addCart(product._id)"
+              @click="addProductCart(product)"
             >
               Add to cart
             </button>
@@ -107,12 +116,15 @@ import {
   BInputGroup,
   BInputGroupPrepend,
   BFormInput,
+  BBreadcrumb,
+  BBreadcrumbItem,
   // BPaginationNav,
   // BInputGroupAppend,
   // BButton,
 } from 'bootstrap-vue'
 import { required, email } from '@validations'
 import { mapActions, mapGetters, mapState } from 'vuex'
+import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 // import DetailProduct from './DetailProduct.vue'
 
 export default {
@@ -124,6 +136,9 @@ export default {
     BInputGroup,
     BInputGroupPrepend,
     BFormInput,
+    BBreadcrumb,
+    BBreadcrumbItem,
+    FeatherIcon,
     // BPaginationNav,
     // BInputGroupAppend,
     // BButton,
@@ -161,7 +176,7 @@ export default {
     this.getProduct()
   },
   methods: {
-    ...mapActions(['getCategory', 'getProduct', 'getAllProduct']),
+    ...mapActions(['getCategory', 'getProduct', 'getAllProduct', 'addCart']),
 
     searchFilterFunction(contact) {
       console.log(contact.title)
@@ -220,9 +235,15 @@ export default {
       this.$router.push(`/product/${idProduct}`)
     },
 
-    // addCard(idProduct){
-
-    // }
+    async addProductCart(product) {
+      console.log({ product })
+      const productCart = {
+        product,
+        quantify: 1,
+      }
+      console.log({ productCart })
+      await this.addCart(productCart)
+    },
   },
 }
 </script>
@@ -243,24 +264,28 @@ li {
 .list-product {
   display: flex;
   width: 100%;
+  margin-top: 20px;
 }
 .category {
   width: 17%;
   height: auto;
-  margin-top: 50px;
   /* display: flex; */
-  flex: 1;
+  flex: 1.4;
   flex-wrap: wrap;
+  background-color: #fff;
+  .nav{
+    margin-left: 20px;
+  }
 }
 .nav-item > a {
-  font-size: 18px;
+  font-size: 17px;
 }
 .content{
   /* display: flex; */
+  margin-left: 20px;
   flex: 5;
   .input-group-merge{
-    width: 50% !important;
-    margin: 0px 0px 10px 50% !important;
+    margin: 0px 0px 10px 0px !important;
   }
   .list_product{
     /* position: absolute; */
@@ -268,23 +293,23 @@ li {
     background-color: #fff;
     flex-basis: 100%;
     flex-wrap: wrap;
-    border-radius: 15px;
+    border-radius: 7px;
   }
 }
 
 .product{
   /* display: flex; */
   width: 21%;
+  margin:20px 18px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
   justify-content: space-around;
-  margin:20px 19px;
 }
 .product:hover{
   cursor: pointer;
   border: 1px solid #c0c0c0;
   box-shadow: 0px 0px 2px 2px #c0c0c0;
-}
-.content {
-  margin: 0px !important;
 }
 .img_product{
   width: 100%;
@@ -300,7 +325,6 @@ li {
   margin-left: 10px;
 }
 .add_cart{
-  margin-left: 10px;
   padding: 8px;
   border-radius: 8px;
   border: none;
@@ -312,4 +336,7 @@ li {
   border: 1px solid white;
   padding: 7px;
 }
+.breadcrumb {
+      font-size: 17px;
+  }
 </style>

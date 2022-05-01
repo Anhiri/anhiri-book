@@ -4,14 +4,24 @@
     class="h-100"
     :class="[skinClasses]"
   >
-    <Navbar />
-    <router-view />
-    <Footer />
+    <div
+      v-if="userInfos.role===1"
+    >
+      <Admin />
+      <router-view />
+      <Footer />
+    </div>
+    <div v-else>
+      <Navbar />
+      <router-view />
+      <Footer />
+    </div>
 
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters, mapState } from 'vuex'
 
 import { $themeColors, $themeBreakpoints, $themeConfig } from '@themeConfig'
 import { provideToast } from 'vue-toastification/composition'
@@ -20,25 +30,24 @@ import useAppConfig from '@core/app-config/useAppConfig'
 import { useWindowSize, useCssVar } from '@vueuse/core'
 import Navbar from '@/layouts/components/Navbar.vue'
 import Footer from '@/layouts/components/Footer.vue'
+import Admin from '@/layouts/components/Admin.vue'
 
 import store from '@/store'
 
-// const LayoutVertical = () => import('@/layouts/vertical/LayoutVertical.vue')
-// const LayoutHorizontal = () => import('@/layouts/horizontal/LayoutHorizontal.vue')
-// const LayoutFull = () => import('@/layouts/full/LayoutFull.vue')
-
 export default {
   components: {
-
-    // Layouts,
-    // LayoutHorizontal,
-    // LayoutVertical,
-    // LayoutFull,
     Navbar,
     Footer,
-
+    Admin,
+  },
+  data() {
+    return {
+      isAdmin: false,
+    }
   },
   computed: {
+    ...mapState(['userLoggedIn']),
+    ...mapGetters(['userInfos']),
     layout() {
       if (this.$route.meta.layout === 'full') return 'layout-full'
       return `layout-${this.contentLayoutType}`
@@ -70,13 +79,7 @@ export default {
   },
   setup() {
     const { skin, skinClasses } = useAppConfig()
-
-    // If skin is dark when initialized => Add class to body
     if (skin.value === 'dark') document.body.classList.add('dark-layout')
-
-    // Provide toast for Composition API usage
-    // This for those apps/components which uses composition API
-    // Demos will still use Options API for ease
     provideToast({
       hideProgressBar: true,
       closeOnClick: false,
@@ -85,8 +88,6 @@ export default {
       timeout: 3000,
       transition: 'Vue-Toastification__fade',
     })
-// ss
-    // Set Window Width in store
     store.commit('app/UPDATE_WINDOW_WIDTH', window.innerWidth)
     const { width: windowWidth } = useWindowSize()
     watch(windowWidth, val => {
@@ -97,7 +98,24 @@ export default {
       skinClasses,
     }
   },
+  created() {
+    this.getUserInfo()
+  },
   methods: {
+    ...mapActions(['logout', 'getUserInfo']),
+    isActive(menuItem) {
+      return this.activeItem === menuItem
+    },
+    setActive(menuItem) {
+      this.activeItem = menuItem
+      this.$router.push(menuItem)
+    },
+    logoutUser() {
+      this.logout()
+        .then(() => {
+          this.$router.push('/login')
+        })
+    },
   },
 }
 </script>

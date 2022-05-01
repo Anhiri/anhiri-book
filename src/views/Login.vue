@@ -249,8 +249,10 @@ export default {
                 },
               })
               if (this.userInfos.role === 1) {
+                this.isAdmin = true
                 this.$router.push('/admin')
               } else {
+                this.isAdmin = false
                 this.$router.push('/')
               }
             } else {

@@ -30,6 +30,50 @@ class Products {
     return axios.get(`${API_URL}/api/products/new`,
       { headers: { Authorization: token } })
   }
+
+  // eslint-disable-next-line class-methods-use-this
+  deleteProduct(idProduct) {
+    const token = localStorage.getItem('user')
+    return axios.delete(`${API_URL}/api/products/${idProduct}`,
+      { headers: { Authorization: token } })
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  addProduct(product) {
+    console.log('service', product)
+    const token = localStorage.getItem('user')
+    return axios.post(`${API_URL}/api/products`, {
+      product_id: product.product_id,
+      title: product.title,
+      authorName: product.authorName,
+      price: product.price,
+      description: product.description,
+      content: product.content,
+      images: product.images,
+      category: product.category,
+      total: product.total,
+    },
+    { headers: { Authorization: token } })
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  updateProduct(product) {
+    console.log('service', product)
+    const token = localStorage.getItem('user')
+    return axios.put(`${API_URL}/api/products/${product.idProduct}`, {
+      idProduct: product.idProduct,
+      product_id: product.product_id,
+      title: product.title,
+      authorName: product.authorName,
+      price: product.price,
+      description: product.description,
+      content: product.content,
+      images: product.images,
+      category: product.category,
+      total: product.total,
+    },
+    { headers: { Authorization: token } })
+  }
 }
 
 export default new Products()

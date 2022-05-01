@@ -1,12 +1,19 @@
 <template>
   <div id="detailProduct">
-    <h1
-      class="text"
-      style="width: 100%; text-align: center; font-size: 35px; margin-top: 20px;"
-    >
-      CHI TIẾT SẢN PHẨM
-    </h1>
-
+    <h2 class="content-header-title float-left pr-1 mb-0">
+      Anh Iri
+    </h2>
+    <b-breadcrumb class="breadcrumb-slash">
+      <b-breadcrumb-item @click="$router.push('/')">
+        Home
+      </b-breadcrumb-item>
+      <b-breadcrumb-item @click="$router.push('/product')">
+        Product
+      </b-breadcrumb-item>
+      <b-breadcrumb-item active>
+        Detail Product
+      </b-breadcrumb-item>
+    </b-breadcrumb>
     <div
       class="content"
     >
@@ -60,12 +67,12 @@
 </template>
 
 <script>
-// import {
-//   BNav,
-//   BNavItem,
-//   BDropdownDivider,
-// } from 'bootstrap-vue'
-import { BButton, BDropdownDivider } from 'bootstrap-vue'
+import {
+  BButton,
+  BDropdownDivider,
+  BBreadcrumb,
+  BBreadcrumbItem,
+} from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
 import { required, email } from '@validations'
 import { mapActions, mapGetters } from 'vuex'
@@ -74,9 +81,9 @@ export default {
   name: 'Detailproduct',
   components: {
     BButton,
-    // BNav,
-    // BNavItem,
     BDropdownDivider,
+    BBreadcrumb,
+    BBreadcrumbItem,
   },
   directives: {
     Ripple,
@@ -141,7 +148,7 @@ export default {
     padding: 20px 0px;
     background-color:#fff;
     width: 100%;
-    border-radius: 15px;
+    border-radius: 7px;
 }
 .img_product{
     margin-right: 30px;
@@ -161,7 +168,7 @@ export default {
 .description {
   margin: 10px 10% !important;
   background-color: #fff;
-  border-radius: 15px;
+  border-radius: 7px;
   div{
     margin: 30px 68px;
     p{

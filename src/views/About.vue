@@ -1,8 +1,16 @@
 <template>
   <div id="about">
-    <h1 style="width: 100%; text-align: center; font-size: 35px; margin-top: 20px;   color: #61492e;">
-      GIỚI THIỆU VỀ CỬA HÀNG
-    </h1>
+    <h2 class="content-header-title float-left pr-1 mb-0">
+      Anh Iri
+    </h2>
+    <b-breadcrumb class="breadcrumb-slash">
+      <b-breadcrumb-item @click="$router.push('/')">
+        Home
+      </b-breadcrumb-item>
+      <b-breadcrumb-item active>
+        About
+      </b-breadcrumb-item>
+    </b-breadcrumb>
     <div class="content">
       <img
         class="content-img"
@@ -28,10 +36,16 @@
 </template>
 <script>
 // import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
+import {
+  BBreadcrumb,
+  BBreadcrumbItem,
+} from 'bootstrap-vue'
 
 export default {
   components: {
     // FeatherIcon,
+    BBreadcrumb,
+    BBreadcrumbItem,
   },
 }
 </script>
@@ -45,7 +59,7 @@ export default {
     background-color: #fff;
     padding: 30px 0px 20px 0px;
     margin-left: 0px;
-    border-radius:15px;
+    border-radius:7px;
     .content-img{
       margin-left: 40px;
       // max-width: 100%;

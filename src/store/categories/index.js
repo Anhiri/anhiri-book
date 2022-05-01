@@ -14,9 +14,9 @@ export default {
       state.listCategories = categories
       console.log(categories, 'categories')
     },
-    UPDATE_USER(state, user) {
-      // eslint-disable-next-line no-underscore-dangle
-      state.userInfos.result._id = user.id
+    ADD_CATEGORY(state, category) {
+      console.log(category)
+      // state.listCategories.unshift(category)
     },
   },
   actions: {
@@ -29,6 +29,15 @@ export default {
           // console.log(response.data)
         })
         // }
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async addCategory({ commit }, category) {
+      console.log('action', category)
+      try {
+        const response = await Categories.addCategory(category)
+        commit('ADD_CATEGORY', response.data)
       } catch (error) {
         console.log(error)
       }

@@ -52,7 +52,7 @@ export default {
     background-color: #fff;
     padding: 30px 0px 20px 0px;
     margin-left: 0px;
-    border-radius:15px;
+    border-radius:7px;
     .content-img{
       margin-left: 40px;
     //   width: 300px;

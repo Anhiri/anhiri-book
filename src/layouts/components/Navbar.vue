@@ -40,14 +40,17 @@
       <b-nav-item @click="logoutUser()">
         Logout
       </b-nav-item>
-      <b-nav-item class="navbar-cart">
+      <b-nav-item
+        class="navbar-cart"
+        @click="$router.push('/cart')"
+      >
         <feather-icon
           icon="ShoppingCartIcon"
-          size="17"
+          size="20"
           class="align-middle text-body icon-shopping"
         />
         <p class="quantity-cart">
-          0
+          {{ userInfos.cart.length }}
         </p>
       </b-nav-item>
     </b-nav>
@@ -107,14 +110,15 @@ export default {
 </script>
 <style scoped>
 #navbar {
+  margin: -68px 95px 20px 95px !important;
   position: fixed;
-  margin-top: -68px !important;
   z-index: 2;
-  width: 90%;
   padding:0 3%;
   background-color:#fff;
   display: flex;
+  width: 1176px;
   justify-content: space-between;
+  border-radius: 7px 7px 0px 0px;
 }
 .logo_img {
   width: auto;
