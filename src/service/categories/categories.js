@@ -12,7 +12,7 @@ class Categories {
 
   // eslint-disable-next-line class-methods-use-this
   addCategory(category) {
-    console.log('service', category)
+    console.log('service', category.name)
     const token = localStorage.getItem('user')
     return axios.post(`${API_URL}/api/category`,
       { name: category.name },
@@ -21,9 +21,10 @@ class Categories {
 
   // eslint-disable-next-line class-methods-use-this
   updateCategory(category) {
+    console.log('service', category)
     const token = localStorage.getItem('user')
-    return axios.put(`${API_URL}/api/category`,
-      { name: category.name },
+    return axios.put(`${API_URL}/api/category/${category.idCategory}`,
+      { name: category.nameUpdate },
       { headers: { Authorization: token } })
   }
 

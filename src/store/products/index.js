@@ -33,19 +33,23 @@ export default {
       console.log(state.newProducts.products, 'bestSeller')
       state.listProduct.products = [...state.listProduct.products]
     },
-    DELETE_PRODUCT(state, idProduct) {
+    DELETE_PRODUCT(state, product) {
+      console.log('mutation', product)
       // eslint-disable-next-line no-underscore-dangle
-      state.listProduct.products = state.listProduct.products.filter(item => item._id !== idProduct)
+      state.listProduct.products = state.listProduct.products.filter(item => item._id !== product.idProduct)
       state.listProduct.products = [...state.listProduct.products]
     },
     ADD_PRODUCT(state, product) {
-      console.log('mutation', product.product)
-      // state.listProduct.products.unshift(product.product)
+      // console.log('mutation', product.product)
+      state.listProduct.products.unshift(product.product)
       state.listProduct.products = [...state.listProduct.products]
     },
     UPDATE_PRODUCT(state, product) {
+      console.log('mutation', product.idProduct)
       // eslint-disable-next-line no-underscore-dangle
-      state.listProduct.products._id = product.id
+      state.listProduct.products._id = product.idProduct
+      // eslint-disable-next-line no-underscore-dangle
+      console.log('mutation', state.listProduct.products._id)
       state.listProduct.products = [...state.listProduct.products]
     },
   },
@@ -84,18 +88,27 @@ export default {
       }
     },
     async deleteProduct({ commit }, idProduct) {
+      // console.log(idProduct)
       try {
-        const response = await Product.deleteProduct(idProduct)
-        commit('DELETE_PRODUCT', response.data)
+        await Product.deleteProduct(idProduct)
+          .then(response => {
+            const deleteProduct = {
+              idProduct,
+              data: response.data,
+            }
+            commit('DELETE_PRODUCT', deleteProduct)
+          })
       } catch (error) {
         console.log(error)
       }
     },
     async addProduct({ commit }, product) {
-      console.log('action', product)
+      // console.log('action', product)
       try {
-        const response = await Product.addProduct(product)
-        commit('ADD_PRODUCT', response.data)
+        await Product.addProduct(product)
+          .then(response => {
+            commit('ADD_PRODUCT', response.data)
+          })
       } catch (error) {
         console.log(error)
       }
@@ -103,8 +116,15 @@ export default {
     async updateProduct({ commit }, product) {
       console.log('action', product)
       try {
-        const response = await Product.updateProduct(product)
-        commit('UPDATE_PRODUCT', response.data)
+        await Product.updateProduct(product)
+          .then(response => {
+            const updateProduct = {
+              // eslint-disable-next-line no-underscore-dangle
+              idProduct: product.idProduct,
+              data: response.data,
+            }
+            commit('UPDATE_PRODUCT', updateProduct)
+          })
       } catch (error) {
         console.log(error)
       }

@@ -239,7 +239,8 @@ export default {
           }).then(() => {
             if (this.loginStatus.status) {
               this.getUserInfo()
-              console.log(this.loginStatus)
+              // console.log(this.loginStatus)
+              console.log(this.userInfos)
               this.$toast({
                 component: ToastificationContent,
                 props: {
@@ -249,10 +250,10 @@ export default {
                 },
               })
               if (this.userInfos.role === 1) {
-                this.isAdmin = true
+                console.log(this.userInfos)
                 this.$router.push('/admin')
               } else {
-                this.isAdmin = false
+                console.log(this.userInfos)
                 this.$router.push('/')
               }
             } else {

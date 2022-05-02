@@ -169,12 +169,28 @@
           </option>
         </select>
       </b-form-group>
-      <button
-        class="add_product"
-        @click="createProduct"
+      <div
+        class="btn"
+        style="margin-left:73%;"
       >
-        Create Product
-      </button>
+        <b-button
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="danger"
+          class="add_product"
+          @click="$router.push('/admin')"
+        >
+          Cancel
+        </b-button>
+        <b-button
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="primary"
+          style="background-color: #61492e !important;"
+          class="add_product"
+          @click="createProduct"
+        >
+          Create Product
+        </b-button>
+      </div>
     </div>
   </div>
 </template>
@@ -183,7 +199,9 @@ import {
   BFormInput, BFormGroup,
   BBreadcrumb,
   BBreadcrumbItem,
+  BButton,
 } from 'bootstrap-vue'
+import Ripple from 'vue-ripple-directive'
 import { mapActions, mapGetters } from 'vuex'
 import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 
@@ -194,6 +212,10 @@ export default {
     BBreadcrumb,
     BBreadcrumbItem,
     FeatherIcon,
+    BButton,
+  },
+  directives: {
+    Ripple,
   },
   data() {
     return {
@@ -226,7 +248,7 @@ export default {
         reader.onerror = error => reject(error)
       })
     },
-    async createProduct() {
+    createProduct() {
       const newProduct = {
         product_id: this.product_id,
         title: this.title,
@@ -239,8 +261,8 @@ export default {
         total: this.total,
       }
       this.addProduct(newProduct)
-      this.$router.push('/admin')
       this.getProduct()
+      this.$router.push('/admin')
     },
 
     async previewFiles(event) {
@@ -277,10 +299,8 @@ export default {
     padding: 10px;
     border-radius: 10px;
     border: none;
-    background-color: rgb(97, 73, 46);
     color: white;
     font-size: 18px;
-    margin-left: 83%;
     margin-bottom: 30px;
   }
   .add_product:hover{

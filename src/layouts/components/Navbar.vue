@@ -16,28 +16,26 @@
       fill
       class="navbar-link"
     >
+      <!-- :class="{ active: isActive('/product') }"
+        @click="setActive('/product')" -->
       <b-nav-item
-        class="btn"
-        :class="{ active: isActive('/') }"
-        @click="setActive('/')"
+        @click="$router.push('/')"
       >
         Home
       </b-nav-item>
       <b-nav-item
-        class="btn"
-        :class="{ active: isActive('/product') }"
-        @click="setActive('/product')"
+        @click="$router.push('/product')"
       >
         Product
       </b-nav-item>
       <b-nav-item
-        class="btn"
-        :class="{ active: isActive('/about') }"
-        @click="setActive('/about')"
+        @click="$router.push('/about')"
       >
         About
       </b-nav-item>
-      <b-nav-item @click="logoutUser()">
+      <b-nav-item
+        @click="logoutUser()"
+      >
         Logout
       </b-nav-item>
       <b-nav-item
@@ -135,8 +133,8 @@ export default {
   padding-top: 20px;
   color: #61492e;
 }
-.active > a {
-  color: #c92127 !important;
+.nav-item > a:hover {
+  color: #c92127;
 }
 .navbar-cart {
   display: flex;

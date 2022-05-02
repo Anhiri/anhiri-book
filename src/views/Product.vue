@@ -21,7 +21,7 @@
           class="text"
           style="font-size: 24px; width: 100%; margin-left: 20px; margin-top: 12px;"
         >
-          Categories
+          Category
         </h4>
         <b-dropdown-divider style="width: 100%;" />
         <b-nav
@@ -222,12 +222,6 @@ export default {
     //   })
     // },
 
-    isActive(menuItem) {
-      return this.activeItem === menuItem
-    },
-    setActive(menuItem) {
-      this.activeItem = menuItem
-    },
     openProduct(idProduct) {
       console.log(idProduct)
       // eslint-disable-next-line no-underscore-dangle
@@ -277,9 +271,9 @@ li {
     margin-left: 20px;
   }
 }
-.nav-item > a {
-  font-size: 17px;
-}
+.nav-item > a:hover{
+    color:#c92127;
+  }
 .content{
   /* display: flex; */
   margin-left: 20px;
@@ -304,7 +298,6 @@ li {
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
-  justify-content: space-around;
 }
 .product:hover{
   cursor: pointer;

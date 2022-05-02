@@ -33,14 +33,16 @@ class Products {
 
   // eslint-disable-next-line class-methods-use-this
   deleteProduct(idProduct) {
+    // console.log('service', idProduct)
     const token = localStorage.getItem('user')
+    // eslint-disable-next-line no-underscore-dangle
     return axios.delete(`${API_URL}/api/products/${idProduct}`,
       { headers: { Authorization: token } })
   }
 
   // eslint-disable-next-line class-methods-use-this
   addProduct(product) {
-    console.log('service', product)
+    // console.log('service', product)
     const token = localStorage.getItem('user')
     return axios.post(`${API_URL}/api/products`, {
       product_id: product.product_id,

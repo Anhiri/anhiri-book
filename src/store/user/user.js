@@ -15,7 +15,7 @@ export default {
     // eslint-disable-next-line no-shadow
     GET_USER(state, getUser) {
       state.userInfos = getUser
-      console.log(getUser, 'user')
+      // console.log(getUser, 'user')
       // eslint-disable-next-line no-underscore-dangle
       localStorage.setItem('userId', getUser._id)
     },

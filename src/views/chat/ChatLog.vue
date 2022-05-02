@@ -255,7 +255,6 @@ export default {
       }
     }
   }
-
   .chat-time{
     text-align: left;
     font-size: 9px;

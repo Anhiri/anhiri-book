@@ -169,21 +169,40 @@
           </option>
         </select>
       </b-form-group>
-      <button
-        class="update_product"
-        @click="handleUpdateProduct(currentProduct._id, currentProduct.product_id, currentProduct.title, currentProduct.authorName, currentProduct.price, currentProduct.description, currentProduct.content, currentProduct.images, currentProduct.category, currentProduct.total)"
+      <div
+        class="btn"
+        style="margin-left:73%;"
       >
-        Update Product
-      </button>
+        <b-button
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="danger"
+          class="update_product"
+          @click="$router.push('/admin')"
+        >
+          Cancel
+        </b-button>
+        <b-button
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="primary"
+          class="update_product"
+          style="background-color: #61492e !important;"
+          @click="handleUpdateProduct(currentProduct._id, currentProduct.product_id, currentProduct.title, currentProduct.authorName, currentProduct.price, currentProduct.description, currentProduct.content, currentProduct.images, currentProduct.category, currentProduct.total)"
+        >
+          Update Product
+        </b-button>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import {
-  BFormInput, BFormGroup,
+  BFormInput,
+  BFormGroup,
   BBreadcrumb,
   BBreadcrumbItem,
+  BButton,
 } from 'bootstrap-vue'
+import Ripple from 'vue-ripple-directive'
 import { mapActions, mapGetters } from 'vuex'
 import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 
@@ -193,7 +212,11 @@ export default {
     BFormGroup,
     BBreadcrumb,
     BBreadcrumbItem,
+    BButton,
     FeatherIcon,
+  },
+  directives: {
+    Ripple,
   },
   data() {
     return {
@@ -259,6 +282,7 @@ export default {
       }
       console.log('vue', this.images, images)
       this.updateProduct(productUpdate)
+      this.$router.push('/admin')
     },
 
     async previewFiles(event) {
@@ -298,7 +322,6 @@ export default {
     background-color: rgb(97, 73, 46);
     color: white;
     font-size: 18px;
-    margin-left: 83%;
     margin-bottom: 30px;
   }
   .update_product:hover{

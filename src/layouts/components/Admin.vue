@@ -17,25 +17,19 @@
       class="navbar-link"
     >
       <b-nav-item
-        class="btn"
-        :class="{ active: isActive('/admin') }"
-        @click="setActive('/admin')"
+        @click="$router.push('/admin')"
       >
         Home
       </b-nav-item>
       <b-nav-item
-        class="btn"
-        :class="{ active: isActive('/addProduct') }"
-        @click="setActive('/addProduct')"
+        @click="$router.push('/addProduct')"
       >
         Add Product
       </b-nav-item>
       <b-nav-item
-        class="btn"
-        :class="{ active: isActive('/handleCategory') }"
-        @click="setActive('/handleCategory')"
+        @click="$router.push('/handleCategory')"
       >
-        Handle Category
+        Category
       </b-nav-item>
       <b-nav-item @click="logoutUser()">
         Logout
@@ -99,7 +93,7 @@ export default {
 #navbar {
   margin: -68px 95px 20px 95px !important;
   position: fixed;
-  z-index: 2;
+  z-index: 20;
   padding:0 3%;
   background-color:#fff;
   display: flex;
@@ -122,7 +116,7 @@ export default {
   padding-top: 20px;
   color: #61492e;
 }
-.active > a {
-  color: #c92127 !important;
+.nav-item > a:hover {
+  color: #c92127;
 }
 </style>

@@ -4,6 +4,13 @@
       Anh Iri
     </h2>
     <b-breadcrumb class="breadcrumb-slash">
+      <b-breadcrumb-item @click="$router.push('/admin')">
+        <feather-icon
+          icon="HomeIcon"
+          size="15"
+          class="align-middle icon-shopping"
+        />
+      </b-breadcrumb-item>
       <b-breadcrumb-item>
         Admin
       </b-breadcrumb-item>
@@ -64,7 +71,7 @@
             </button>
             <button
               class="btn_product"
-              @click="deleteProduct(product._id)"
+              @click="deleteProducts(product._id)"
             >
               Delete
             </button>
@@ -150,7 +157,6 @@ export default {
     deleteProducts(idProduct) {
       console.log(idProduct)
       this.deleteProduct(idProduct)
-      console.log(this.listProduct.products)
     },
     getProductUpate(idProduct) {
       this.$router.push(`/update/product/${idProduct}`)
