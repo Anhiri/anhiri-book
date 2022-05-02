@@ -96,6 +96,7 @@
           <b-button
             v-ripple.400="'rgba(255, 255, 255, 0.15)'"
             variant="danger"
+            @click="loadMoreProducts()"
           >
             Load More
           </b-button>
@@ -205,20 +206,13 @@ export default {
     async pageGen(pageNum) {
       console.log(pageNum, 'p')
     },
-
-    async linkGen(pageNum) {
-      // await this.getProductPage(pageNum)
-      return pageNum === 1 ? '?' : `?page=${pageNum}`
-    },
     async getProductPage(pageNum) {
       await this.getProduct(pageNum)
-      console.log(this.listProduct)
     },
 
     async handleCategory(idCategory) {
       await this.getAllProduct()
       this.listProduct.products = this.listProduct.products.filter(item => item.category === idCategory)
-      console.log(this.listProduct.products)
       return this.listProduct.products
     },
     allProduct() {
@@ -247,6 +241,13 @@ export default {
       }
       console.log({ productCart })
       await this.addCart(productCart)
+    },
+
+    async loadMoreProducts() {
+      const oldProducts = [...this.listProduct.products]
+      this.page += 1
+      await this.getProductPage(this.page)
+      this.listProduct.products = [...oldProducts, ...(this.listProduct.products || [])]
     },
   },
 }
