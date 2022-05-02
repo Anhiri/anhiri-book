@@ -93,17 +93,23 @@
               Add to cart
             </button>
           </div>
+          <b-button
+            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+            variant="danger"
+          >
+            Load More
+          </b-button>
         </div>
+      </div>
 
-        <!-- Phan trang -->
-        <!-- <b-pagination-nav
+      <!-- Phan trang -->
+      <!-- <b-pagination-nav
           :link-gen="linkGen"
           :page-gen="listProduct.page"
           :number-of-pages="listProduct.totalPage"
           use-router
           class="mb-0"
         /> -->
-      </div>
     </div>
   </div>
 </template>
@@ -120,8 +126,9 @@ import {
   BBreadcrumbItem,
   // BPaginationNav,
   // BInputGroupAppend,
-  // BButton,
+  BButton,
 } from 'bootstrap-vue'
+import Ripple from 'vue-ripple-directive'
 import { required, email } from '@validations'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
@@ -141,8 +148,11 @@ export default {
     FeatherIcon,
     // BPaginationNav,
     // BInputGroupAppend,
-    // BButton,
+    BButton,
     // DetailProduct,
+  },
+  directives: {
+    Ripple,
   },
   data() {
     return {
@@ -265,6 +275,7 @@ li {
   height: auto;
   /* display: flex; */
   flex: 1.4;
+    border-radius: 7px;
   flex-wrap: wrap;
   background-color: #fff;
   .nav{
@@ -283,11 +294,13 @@ li {
   }
   .list_product{
     /* position: absolute; */
+    padding-bottom: 20px;
     display: flex;
     background-color: #fff;
     flex-basis: 100%;
     flex-wrap: wrap;
     border-radius: 7px;
+    justify-content:center;
   }
 }
 
@@ -309,7 +322,7 @@ li {
   height: auto;
 }
 .name_product{
-  font-size: 15px;
+  font-size: 13px;
   margin:0px 8px !important;
 }
 .price_product{

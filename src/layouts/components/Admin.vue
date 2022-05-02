@@ -31,6 +31,11 @@
       >
         Category
       </b-nav-item>
+      <b-nav-item
+        @click="$router.push('/historyPayment')"
+      >
+        History Payment
+      </b-nav-item>
       <b-nav-item @click="logoutUser()">
         Logout
       </b-nav-item>

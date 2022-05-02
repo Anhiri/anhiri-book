@@ -281,7 +281,7 @@ export default {
         total,
       }
       console.log('vue', this.images, images)
-      this.updateProduct(productUpdate)
+      await this.updateProduct(productUpdate)
       this.$router.push('/admin')
     },
 

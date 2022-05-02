@@ -24,9 +24,6 @@
         Cửa Hàng
       </h5>
       <br>
-      <p @click="$router.push('/faq')">
-        FAQ
-      </p>
       <p @click="$router.push('/shipping')">
         Phương thức vận chuyển - Hoàn tiền
       </p>

@@ -21,50 +21,55 @@
 
     <div class="cart-content">
       <div class="product_cart">
+        <p
+          class="text"
+          style="width: 100%; text-align: center; font-size: 25px; margin-top: 20px;"
+        >
+          My Cart
+        </p>
         <div
           v-for="product in userInfos.cart"
-          :key="product.idProduct"
+          :key="product.product._id"
           class="content_product"
         >
-          <img
-            :src="product.product.images[0].url"
-            alt=""
-            class="img_product"
-          >
-          <div class="right-content">
-            <p
-              class="name_product"
-              style="font-size: 20px; font-weight: 400"
+          <div style="display: flex;">
+            <img
+              :src="product.product.images[0].url"
+              alt=""
+              class="img_product"
             >
-              {{ product.product.title }}
-            </p>
-            <p class="price_product">
-              {{ new Intl.NumberFormat().format(product.product.price) }}₫
-            </p>
-            <div>
-              <p for="demo-sb">
-                Số lượng:
+            <div class="right-content">
+              <p
+                class="name_product"
+                style="font-size: 20px; font-weight: 400"
+              >
+                {{ product.product.title }}
               </p>
-              <b-form-spinbutton
-                id="demo-sb"
-                v-model="product.quantify"
-                min="1"
-                max="100"
-                style="width:50%;"
-              />
-              <!-- <p class="mt-1">
-            Value: {{ product.quantity }}
-          </p> -->
-              <!-- <b-alert
-            class="mb-0"
-            show
-            variant="success"
+              <p class="price_product">
+                {{ new Intl.NumberFormat().format(product.product.price) }}₫
+              </p>
+              <div>
+                <p for="demo-sb">
+                  Số lượng:
+                </p>
+                <b-form-spinbutton
+                  id="demo-sb"
+                  v-model="product.quantify"
+                  min="1"
+                  max="100"
+                  style="width:130px;"
+                />
+              </div>
+              <p style="margin-top: 1rem;">
+                {{ new Intl.NumberFormat().format(product.product.price*product.quantify) }}₫
+              </p>
+            </div>
+          </div>
+          <div
+            class="delete"
+            @click="removeProduct(product.product._id)"
           >
-            <div class="alert-body">
-              <span> keys can be used to increment or decrement the value.</span>
-            </div>
-          </b-alert> -->
-            </div>
+            X
           </div>
         </div>
       <!-- <p> {{ new Intl.NumberFormat().format(total) }}₫</p> -->
@@ -77,8 +82,6 @@
           Order summary
         </p>
         <div
-          v-for="product in userInfos.cart"
-          :key="product.idProduct"
           class="content_order"
           style="display: flex;
             background-color: #fff;
@@ -86,14 +89,20 @@
         >
           <div class="subtotal">
             <p>Subtotal</p>
-            <p>{{ new Intl.NumberFormat().format(product.quantity * product.product.price) }}₫</p>
+            <p>{{ new Intl.NumberFormat().format(userInfos.cart.reduce((totalProduct, item) => totalProduct + (item.product.price * item.quantify), 0)) }}₫</p>
           </div>
           <div class="shipping">
             <p>Shipping</p>
             <p>FREE</p>
           </div>
-          <p>Shipping</p>
         </div>
+        <b-button
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="primary"
+          style="width: 84%; margin: 30px;"
+        >
+          Submit
+        </b-button>
       </div>
     </div>
   </div>
@@ -103,10 +112,12 @@
 import {
   BFormSpinbutton,
   BBreadcrumb,
+  BButton,
   BBreadcrumbItem,
   // BAlert
 } from 'bootstrap-vue'
 import { mapActions, mapGetters } from 'vuex'
+import Ripple from 'vue-ripple-directive'
 import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 
 export default {
@@ -114,13 +125,18 @@ export default {
   components: {
     BFormSpinbutton,
     BBreadcrumb,
+    BButton,
     BBreadcrumbItem,
     FeatherIcon,
     // BAlert
   },
+  directives: {
+    Ripple,
+  },
 
   data() {
     return {
+      idProduct: null,
     }
   },
   computed: {
@@ -129,11 +145,21 @@ export default {
   created() {
     this.getUserInfo()
     console.log(this.userInfos.cart)
-    const total = this.userInfos.cart.reduce((totalProduct, item) => totalProduct + (item.product.price * item.quantity), 0)
+    const total = this.userInfos.cart.reduce((totalProduct, item) => totalProduct + (item.product.price * item.quantify), 0)
     console.log('total', total)
   },
   methods: {
     ...mapActions(['getUserInfo', 'getProduct']),
+    removeProduct(idProduct) {
+      console.log(idProduct)
+      this.userInfos.cart.forEach((item, index) => {
+        // eslint-disable-next-line no-underscore-dangle
+        if (item.product._id === idProduct) {
+          console.log(index)
+          this.userInfos.cart.splice(index, 1)
+        }
+      })
+    },
   },
 }
 </script>
@@ -147,14 +173,18 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin: 68px 7% 10px 7% !important;
-  .product_cart{
+  .cart-content{
+    display: flex;
+    .product_cart{
+      margin-right: 30px;
       display: flex;
       flex-wrap: wrap;
+      background-color:#fff;
+      border-radius: 7px;
       flex: 2;
       .content_product{
         display: flex;
-        background-color:#fff;
-        border-radius: 7px;
+        justify-content: space-between;
         width: 97%;
         .img_product{
             height: 200px;
@@ -163,18 +193,38 @@ export default {
          .right-content{
              margin: 20px 20px 20px 0px;
         }
+        .delete{
+          // position: absolute;
+          top:0;
+          right: 5px;
+          color: crimson;
+          font-weight: 900;
+          cursor: pointer;
+        }
       }
+    }
     .order_summary{
+      background-color: #fff;
+      border-radius: 7px;
+      flex-wrap: wrap;
+      flex: 1;
+      .content_order{
+        margin: 30px;
         display: flex;
         flex-wrap: wrap;
-        flex: 1;
-        .content_order{
-            display: flex;
-            background-color: #fff;
-            border-radius: 7px;
-        }
+      }
     }
   }
+.subtotal{
+  display: flex;
+  justify-content:space-between;
+  width: 100%;
+}
+.shipping{
+  display: flex;
+  justify-content:space-between;
+  width: 100%;
+}
 
 }
 </style>

@@ -317,7 +317,7 @@ export default {
           height: auto;
         }
         .name_product{
-          font-size: 18px;
+          font-size: 16px;
           margin:0px 8px !important;
         }
         .price_product{
@@ -380,7 +380,7 @@ export default {
           height: auto;
         }
         .name_product{
-          font-size: 18px;
+          font-size: 16px;
           margin:0px 10px !important;
         }
         .price_product{

@@ -99,24 +99,16 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
-    // {
-    //   path: '/handleCategory',
-    //   name: 'handleCategory',
-    //   component: () => import('@/views/admin/HandleCategory.vue'),
-    //   meta: {
-    //     layout: 'full',
-    //   },
-    // },
-
-    // footer
     {
-      path: '/faq',
-      name: 'faq',
-      component: () => import('@/layouts/components/footer/FAQ.vue'),
+      path: '/historyPayment',
+      name: 'historyPayment',
+      component: () => import('../views/admin/HistoryPayment.vue'),
       meta: {
         layout: 'full',
       },
     },
+
+    // footer
     {
       path: '/shipping',
       name: 'shipping',

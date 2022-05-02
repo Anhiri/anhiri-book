@@ -27,10 +27,15 @@ export default {
       console.log(cart)
       state.userInfos.cart.unshift(cart)
     },
-    GET_CART(state, cart) {
-      state.listProductCart = cart
+    DELETE_CART(state, idProduct) {
       // eslint-disable-next-line no-underscore-dangle
-      state.userInfos.cart.idProduct = cart._id
+      state.userInfos.cart.forEach((item, index) => {
+        // eslint-disable-next-line no-underscore-dangle
+        if (item.product._id === idProduct) {
+          console.log(index)
+          state.userInfos.cart.splice(index, 1)
+        }
+      })
     },
   },
   actions: {
@@ -54,6 +59,23 @@ export default {
       }
     },
     async addCart({ commit }, cart) {
+      console.log(cart)
+      try {
+        const response = await addCart.addCart(cart)
+        const product = {
+          // eslint-disable-next-line no-underscore-dangle
+          idProduct: cart.product._id,
+          product: cart.product,
+          quantity: cart.quantity,
+          data: response.data,
+        }
+        // console.log(product)
+        commit('ADD_CART', product)
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    async deleteCart({ commit }, cart) {
       console.log(cart)
       try {
         const response = await addCart.addCart(cart)
