@@ -8,7 +8,7 @@
     </h2>
     <b-breadcrumb
       class="breadcrumb-slash"
-      style="margin-top: 15px;"
+      style="margin: 15px 0px 0px 0px;"
     >
       <b-breadcrumb-item @click="$router.push('/admin')">
         <feather-icon
@@ -20,40 +20,38 @@
       <b-breadcrumb-item @click="$router.push('/admin')">
         Admin
       </b-breadcrumb-item>
-      <b-breadcrumb-item active>
+      <b-breadcrumb-item @click="$router.push('/historyPayment')">
         History Payment
       </b-breadcrumb-item>
+      <b-breadcrumb-item active>
+        Detail Payment
+      </b-breadcrumb-item>
     </b-breadcrumb>
-    <div class="content-history">
+    <div class="detail-history">
       <table>
         <thead>
           <tr style="backgroundColor:#e6e6e6;">
-            <th>Payment ID</th>
-            <th>Tên</th>
-            <th>Điện thoại</th>
-            <th>Địa chỉ</th>
-            <th>Thời gian</th>
-            <th>Tổng tiền</th>
-            <th>Chi tiết</th>
+            <th>Hình ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá</th>
+            <th>Số Lượng</th>
+            <th>Tổng</th>
           </tr>
         </thead>
-        <tbody
-          v-for="payment in listPayment"
-          :key="payment._id"
-        >
-          <tr>
-            <td>{{ payment._id }}</td>
-            <td>{{ payment.name }}</td>
-            <td>{{ payment.phoneNumber }}</td>
-            <td>{{ payment.address }}</td>
-            <td>{{ new Date(payment.createdAt).toLocaleDateString() }}</td>
-            <td>{{ new Intl.NumberFormat().format(payment.cart.reduce((totalProduct, item) => totalProduct + (item.product.price * item.quantify), 0)) }}₫</td>
-            <td
-              style="color: blue;"
-              @click="openDetailPayment(payment._id)"
-            >
-              view
-            </td>
+        <tbody>
+          <tr
+            v-for="detail in currentPayment.cart"
+            :key="detail.index"
+          >
+            <td><img
+              :src="detail.product.images[0].url"
+              alt=""
+              class="img_product"
+            ></td>
+            <th>{{ detail.product.title }}</th>
+            <th>{{ new Intl.NumberFormat().format(detail.product.price) }}₫</th>
+            <td>{{ detail.quantify }}</td>
+            <th>{{ new Intl.NumberFormat().format(detail.product.price * detail.quantify) }}₫</th>
           </tr>
         </tbody>
       </table>
@@ -82,35 +80,34 @@ export default ({
   },
   data() {
     return {
-
+      idPayment: null,
     }
   },
   computed: {
     ...mapGetters(['listPayment']),
     currentPayment() {
-      console.log(this.listPayment.cart)
+      console.log(this.listPayment)
       // eslint-disable-next-line no-underscore-dangle
-      const payment = this.listPayment.cart.foreach(item => item._id === this.idProduct)
+      const payment = this.listPayment.find(item => item._id === this.idPayment)
+      console.log(payment)
       return payment
     },
-    // totalOrder() {
-    //   console.log(this.listPayment.cart)
-    //   const total = this.listPayment.cart.reduce((totalProduct, item) => totalProduct + (item.product.price * item.quantify), 0)
-    //   console.log(total)
-    //   return total
-    // },
+  },
+  watch: {
+    '$route.params.id': {
+      handler(id) {
+        this.idPayment = id
+      },
+      deep: true,
+      immediate: true,
+    },
   },
   created() {
-    this.getPayment()
+    // this.getPayment()
   },
   methods: {
     ...mapActions(['getPayment']),
-    openDetailPayment(idPayment) {
-      console.log(idPayment)
-      // eslint-disable-next-line no-underscore-dangle
-      this.listPayment._id = idPayment
-      this.$router.push(`/historyPayment/${idPayment}`)
-    },
+
   },
 })
 </script>
@@ -122,12 +119,15 @@ export default ({
   .breadcrumb {
     font-size: 17px;
   }
-  .content-history {
-    margin-top: 10px;
+  .detail-history {
     width: 100%;
+    margin-top: 10px;
     background-color:#fff;
     border-radius: 7px;
   }
+}
+.img_product{
+    height: 200px;
 }
 table{
     margin: 3%;

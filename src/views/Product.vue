@@ -1,18 +1,20 @@
 <template>
   <div id="product">
-    <h2 class="content-header-title float-left pr-1 mb-0">
+    <h2
+      class="content-header-title float-left pr-1 mb-0"
+      style="margin: 15px 0px 0px 30px;"
+    >
       Anh Iri
     </h2>
-    <b-breadcrumb class="breadcrumb-slash">
+    <b-breadcrumb
+      class="breadcrumb-slash"
+      style="margin: 15px 0px 0px 0px;"
+    >
       <b-breadcrumb-item @click="$router.push('/')">
-        <feather-icon
-          icon="HomeIcon"
-          size="20"
-          class="align-middle icon-shopping"
-        />
+        Trang chủ
       </b-breadcrumb-item>
       <b-breadcrumb-item active>
-        Product
+        Sản phẩm
       </b-breadcrumb-item>
     </b-breadcrumb>
     <div class="list-product">
@@ -21,7 +23,7 @@
           class="text"
           style="font-size: 24px; width: 100%; margin-left: 20px; margin-top: 12px;"
         >
-          Category
+          Danh mục sản phẩm
         </h4>
         <b-dropdown-divider style="width: 100%;" />
         <b-nav
@@ -31,7 +33,7 @@
           <b-nav-item
             @click="allProduct"
           >
-            All Product
+            Tất cả
           </b-nav-item>
           <b-nav-item
             v-for="category in listCategories"
@@ -55,8 +57,9 @@
           </b-input-group-prepend>
           <b-form-input
             v-model="searchQuery"
-            placeholder="Search..."
+            placeholder="Tìm kiếm ..."
             @keyup="filteredChatsContacts"
+            @keyup.enter="searchProduct(searchQuery)"
           />
         </b-input-group>
 
@@ -90,7 +93,7 @@
               class="add_cart"
               @click="addProductCart(product)"
             >
-              Add to cart
+              Thêm vào giỏ hàng
             </button>
           </div>
           <b-button
@@ -98,7 +101,7 @@
             variant="danger"
             @click="loadMoreProducts()"
           >
-            Load More
+            Xem thêm
           </b-button>
         </div>
       </div>
@@ -202,6 +205,14 @@ export default {
         this.getProduct()
       }
     },
+    searchProduct(searchQuery) {
+      const params = {
+        page: this.page,
+        search: searchQuery,
+      }
+      console.log(searchQuery)
+      this.getProduct(params)
+    },
 
     async pageGen(pageNum) {
       console.log(pageNum, 'p')
@@ -266,6 +277,9 @@ li {
   flex-wrap: wrap;
   margin: 68px 7% 10px 7% !important;
 }
+.breadcrumb {
+    font-size: 17px;
+  }
 .list-product {
   display: flex;
   width: 100%;

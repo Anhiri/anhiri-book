@@ -11,9 +11,9 @@ class Products {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  getProducts(page = 1, search = '') {
+  getProducts(params = { page: 1, search: '' }) {
     const token = localStorage.getItem('user')
-    return axios.get(`${API_URL}/api/products?page=${page}&limit=12&search=${search}`,
+    return axios.get(`${API_URL}/api/products?page=${params.page}&limit=12&search=${params.search}`,
       { headers: { Authorization: token } })
   }
 

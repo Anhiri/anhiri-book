@@ -1,9 +1,15 @@
 <template>
   <div id="home_admin">
-    <h2 class="content-header-title float-left pr-1 mb-0">
+    <h2
+      class="content-header-title float-left pr-1 mb-0"
+      style="margin: 15px 0px 0px 30px;"
+    >
       Anh Iri
     </h2>
-    <b-breadcrumb class="breadcrumb-slash">
+    <b-breadcrumb
+      class="breadcrumb-slash"
+      style="margin: 15px 0px 0px 0px;"
+    >
       <b-breadcrumb-item @click="$router.push('/admin')">
         <feather-icon
           icon="HomeIcon"
@@ -34,6 +40,7 @@
             v-model="searchQuery"
             placeholder="Search..."
             @keyup="filteredChatsContacts"
+            @keyup.enter="searchProduct(searchQuery)"
           />
         </b-input-group>
 
@@ -154,6 +161,14 @@ export default {
         this.getProduct()
       }
     },
+    searchProduct(searchQuery) {
+      const params = {
+        page: this.page,
+        search: searchQuery,
+      }
+      console.log(searchQuery)
+      this.getProduct(params)
+    },
     deleteProducts(idProduct) {
       console.log(idProduct)
       this.deleteProduct(idProduct)
@@ -175,6 +190,12 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin: 68px 7% 10px 7% !important;
+  .breadcrumb {
+    font-size: 17px;
+  }
+}
+.list-product{
+    width: 100%;
 }
 .content{
   /* display: flex; */
@@ -197,7 +218,7 @@ export default {
   /* display: flex; */
   width: 21%;
   justify-content: space-around;
-  margin:20px 19px;
+  margin: 20px 23px;
 }
 .product:hover{
   cursor: pointer;

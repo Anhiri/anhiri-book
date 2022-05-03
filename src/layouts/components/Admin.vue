@@ -19,25 +19,25 @@
       <b-nav-item
         @click="$router.push('/admin')"
       >
-        Home
+        Trang Chủ
       </b-nav-item>
       <b-nav-item
         @click="$router.push('/addProduct')"
       >
-        Add Product
+        Thêm Sản Phẩm
       </b-nav-item>
       <b-nav-item
         @click="$router.push('/handleCategory')"
       >
-        Category
+        Danh Mục
       </b-nav-item>
       <b-nav-item
         @click="$router.push('/historyPayment')"
       >
-        History Payment
+        Lịch Sử
       </b-nav-item>
       <b-nav-item @click="logoutUser()">
-        Logout
+        Đăng Xuất
       </b-nav-item>
     </b-nav>
   </div>

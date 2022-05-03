@@ -23,6 +23,7 @@ export default {
       console.log(product.products, 'listProduct')
       state.listProduct.products = [...state.listProduct.products]
     },
+
     GET_PRODUCTS_BEST_SELLER(state, product) {
       state.productBestSeller = product
       console.log(state.productBestSeller.products, 'bestSeller')
@@ -62,9 +63,9 @@ export default {
         console.log(error)
       }
     },
-    async getProduct({ commit }, page) {
+    async getProduct({ commit }, params) {
       try {
-        const response = await Product.getProducts(page)
+        const response = await Product.getProducts(params)
         commit('GET_PRODUCTS', response.data)
       } catch (error) {
         console.log(error)

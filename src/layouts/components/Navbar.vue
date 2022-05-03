@@ -9,7 +9,7 @@
       v-if="userInfos.length==0"
       @click="logoutUser"
     >
-      Login
+      Đăng Nhập
     </b-nav-item>
     <b-nav
       v-else
@@ -21,22 +21,21 @@
       <b-nav-item
         @click="$router.push('/')"
       >
-        Home
+        Trang Chủ
       </b-nav-item>
       <b-nav-item
         @click="$router.push('/product')"
-      >
-        Product
+      >Sản Phẩm
       </b-nav-item>
       <b-nav-item
         @click="$router.push('/about')"
       >
-        About
+        Cửa Hàng
       </b-nav-item>
       <b-nav-item
         @click="logoutUser()"
       >
-        Logout
+        Đăng Xuất
       </b-nav-item>
       <b-nav-item
         class="navbar-cart"

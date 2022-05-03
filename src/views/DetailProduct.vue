@@ -1,17 +1,23 @@
 <template>
   <div id="detailProduct">
-    <h2 class="content-header-title float-left pr-1 mb-0">
+    <h2
+      class="content-header-title float-left pr-1 mb-0"
+      style="margin: 15px 0px 0px 30px;"
+    >
       Anh Iri
     </h2>
-    <b-breadcrumb class="breadcrumb-slash">
+    <b-breadcrumb
+      class="breadcrumb-slash"
+      style="margin: 15px 0px 0px 0px;"
+    >
       <b-breadcrumb-item @click="$router.push('/')">
-        Home
+        Trang chủ
       </b-breadcrumb-item>
       <b-breadcrumb-item @click="$router.push('/product')">
-        Product
+        Sản phẩm
       </b-breadcrumb-item>
       <b-breadcrumb-item active>
-        Detail Product
+        Chi tiết sản phẩm
       </b-breadcrumb-item>
     </b-breadcrumb>
     <div
@@ -42,13 +48,14 @@
           v-ripple.400="'rgba(234, 84, 85, 0.15)'"
           variant="outline-danger"
         >
-          Add to cart
+          Thêm vào giỏ hàng
         </b-button>
         <b-button
           v-ripple.400="'rgba(255, 255, 255, 0.15)'"
           variant="danger"
+          @click="$router.push('/cart')"
         >
-          Buy now
+          Mua ngay
         </b-button>
       </div>
     </div>
@@ -137,6 +144,9 @@ export default {
   flex-wrap: wrap;
   margin: 68px 7% 10px 7% !important;
 }
+.breadcrumb {
+    font-size: 17px;
+  }
 .text {
   color: #61492e;
   width: 100%;

@@ -9,6 +9,7 @@ import auth from './logout/auth'
 import user from './user/user'
 import categories from './categories/index'
 import products from './products/index'
+import payment from './payment/index'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default new Vuex.Store({
     user,
     categories,
     products,
+    payment,
   },
   strict: process.env.DEV,
 })

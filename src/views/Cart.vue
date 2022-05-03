@@ -1,21 +1,20 @@
 <template>
   <div id="cart">
-    <h2 class="content-header-title float-left pr-1 mb-0">
+    <h2
+      class="content-header-title float-left pr-1 mb-0"
+      style="margin: 15px 0px 0px 30px;"
+    >
       Anh Iri
     </h2>
-    <b-breadcrumb class="breadcrumb-slash">
+    <b-breadcrumb
+      class="breadcrumb-slash"
+      style="margin: 15px 0px 0px 0px;"
+    >
       <b-breadcrumb-item @click="$router.push('/')">
-        Home
-      </b-breadcrumb-item>
-      <b-breadcrumb-item @click="$router.push('/')">
-        <feather-icon
-          icon="HomeIcon"
-          size="20"
-          class="align-middle icon-shopping"
-        />
+        Trang chủ
       </b-breadcrumb-item>
       <b-breadcrumb-item active>
-        Cart
+        Giỏ hàng
       </b-breadcrumb-item>
     </b-breadcrumb>
 
@@ -25,7 +24,7 @@
           class="text"
           style="width: 100%; text-align: center; font-size: 25px; margin-top: 20px;"
         >
-          My Cart
+          Giỏ hàng của tôi
         </p>
         <div
           v-for="product in userInfos.cart"
@@ -58,6 +57,7 @@
                   min="1"
                   max="100"
                   style="width:130px;"
+                  @change="editCart(product.product._id, product.quantify)"
                 />
               </div>
               <p style="margin-top: 1rem;">
@@ -79,7 +79,7 @@
           class="text"
           style="width: 100%; text-align: center; font-size: 25px; margin-top: 20px;"
         >
-          Order summary
+          Mua sản phẩm
         </p>
         <div
           class="content_order"
@@ -88,20 +88,65 @@
             border-radius: 7px;"
         >
           <div class="subtotal">
-            <p>Subtotal</p>
+            <p>Tổng tiền</p>
             <p>{{ new Intl.NumberFormat().format(userInfos.cart.reduce((totalProduct, item) => totalProduct + (item.product.price * item.quantify), 0)) }}₫</p>
           </div>
           <div class="shipping">
-            <p>Shipping</p>
-            <p>FREE</p>
+            <p>Vận chuyển</p>
+            <p>Miễn phí</p>
           </div>
         </div>
+
+        <b-form-group
+          label-cols="4"
+          label-cols-lg="2"
+          label-size="sm"
+          label="Tên"
+          label-for="input-sm"
+        >
+          <b-form-input
+            id="input-sm"
+            v-model="name"
+            size="sm"
+            placeholder="Nhập tên"
+          />
+        </b-form-group>
+        <b-form-group
+          label-cols="4"
+          label-cols-lg="2"
+          label-size="sm"
+          label="Số điện thoại"
+          label-for="input-sm"
+        >
+          <b-form-input
+            id="input-sm"
+            v-model="phoneNumber"
+            size="sm"
+            placeholder="Nhập số điện thoại"
+          />
+        </b-form-group>
+        <b-form-group
+          label-cols="4"
+          label-cols-lg="2"
+          label-size="sm"
+          label="Địa chỉ"
+          label-for="input-sm"
+        >
+          <b-form-input
+            id="input-sm"
+            v-model="address"
+            size="sm"
+            placeholder="Nhập địa chỉ giao hàng"
+          />
+        </b-form-group>
+
         <b-button
           v-ripple.400="'rgba(255, 255, 255, 0.15)'"
           variant="primary"
           style="width: 84%; margin: 30px;"
+          @click="addPayment(userInfos.cart)"
         >
-          Submit
+          Đặt Hàng
         </b-button>
       </div>
     </div>
@@ -114,11 +159,13 @@ import {
   BBreadcrumb,
   BButton,
   BBreadcrumbItem,
+  BFormGroup,
+  BFormInput,
   // BAlert
 } from 'bootstrap-vue'
 import { mapActions, mapGetters } from 'vuex'
 import Ripple from 'vue-ripple-directive'
-import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
+// import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 
 export default {
   name: 'Cart',
@@ -127,7 +174,8 @@ export default {
     BBreadcrumb,
     BButton,
     BBreadcrumbItem,
-    FeatherIcon,
+    BFormGroup,
+    BFormInput,
     // BAlert
   },
   directives: {
@@ -137,6 +185,11 @@ export default {
   data() {
     return {
       idProduct: null,
+      quantify: null,
+      cart: [],
+      phoneNumber: null,
+      address: '',
+      name: '',
     }
   },
   computed: {
@@ -149,16 +202,28 @@ export default {
     console.log('total', total)
   },
   methods: {
-    ...mapActions(['getUserInfo', 'getProduct']),
+    ...mapActions(['getUserInfo', 'getProduct', 'deleteCart', 'updateCart', 'createPayment']),
     removeProduct(idProduct) {
       console.log(idProduct)
-      this.userInfos.cart.forEach((item, index) => {
-        // eslint-disable-next-line no-underscore-dangle
-        if (item.product._id === idProduct) {
-          console.log(index)
-          this.userInfos.cart.splice(index, 1)
-        }
-      })
+      this.deleteCart(idProduct)
+    },
+    editCart(idProduct, quantify) {
+      const product = {
+        idProduct,
+        quantify,
+      }
+      this.updateCart(product)
+    },
+    addPayment(cart) {
+      console.log(cart)
+      const newPayment = {
+        cart,
+        phoneNumber: this.phoneNumber,
+        address: this.address,
+        name: this.name,
+      }
+      this.createPayment(newPayment)
+      this.$router.push('/')
     },
   },
 }
@@ -169,10 +234,16 @@ export default {
     width: 100%;
     color: #61492e;
 }
+p{
+  font-size: 13px;
+}
 #cart {
   display: flex;
   flex-wrap: wrap;
   margin: 68px 7% 10px 7% !important;
+  .breadcrumb {
+    font-size: 17px;
+  }
   .cart-content{
     display: flex;
     .product_cart{
@@ -209,22 +280,27 @@ export default {
       flex-wrap: wrap;
       flex: 1;
       .content_order{
-        margin: 30px;
+        margin: 30px 30px 0px 30px;
         display: flex;
         flex-wrap: wrap;
       }
     }
   }
-.subtotal{
-  display: flex;
-  justify-content:space-between;
-  width: 100%;
-}
-.shipping{
-  display: flex;
-  justify-content:space-between;
-  width: 100%;
-}
-
+  .subtotal{
+    display: flex;
+    justify-content:space-between;
+    width: 100%;
+  }
+  .shipping{
+    display: flex;
+    justify-content:space-between;
+    width: 100%;
+  }
+  .form-group{
+    margin: 7px 30px;
+    .col-form-label {
+      color: #61492e !important;
+    }
+  }
 }
 </style>

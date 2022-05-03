@@ -1,9 +1,15 @@
 <template>
   <div id="about">
-    <h2 class="content-header-title float-left pr-1 mb-0">
+    <h2
+      class="content-header-title float-left pr-1 mb-0"
+      style="margin: 15px 0px 0px 30px;"
+    >
       Anh Iri
     </h2>
-    <b-breadcrumb class="breadcrumb-slash">
+    <b-breadcrumb
+      class="breadcrumb-slash"
+      style="margin: 15px 0px 0px 0px;"
+    >
       <b-breadcrumb-item @click="$router.push('/')">
         Home
       </b-breadcrumb-item>
@@ -54,6 +60,9 @@ export default {
   display: flex;
   flex-wrap: wrap;
   margin: 68px 7% 10px 7% !important;
+  .breadcrumb {
+    font-size: 17px;
+  }
   .content {
     display: flex;
     background-color: #fff;

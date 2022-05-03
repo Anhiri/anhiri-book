@@ -3,15 +3,9 @@ import axios from 'axios'
 const API_URL = 'http://localhost:2020'
 class Payment {
   // eslint-disable-next-line class-methods-use-this
-  getPayment(payment) {
-    console.log(payment)
+  getPayment() {
     const token = localStorage.getItem('user')
-    return axios.post(`${API_URL}/api/payment`,
-      {
-        cart: payment.cart,
-        paymentID: payment.paymentID,
-        address: payment.address,
-      },
+    return axios.get(`${API_URL}/api/payment`,
       { headers: { Authorization: token } })
   }
 
@@ -22,8 +16,9 @@ class Payment {
     return axios.post(`${API_URL}/api/payment`,
       {
         cart: payment.cart,
-        paymentID: payment.paymentID,
+        phoneNumber: payment.phoneNumber,
         address: payment.address,
+        name: payment.name,
       },
       { headers: { Authorization: token } })
   }

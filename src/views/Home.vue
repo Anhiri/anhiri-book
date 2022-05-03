@@ -80,7 +80,7 @@
           Sách được đề xuất
         </h3>
         <h1 class="title">
-          THÁNG NÀY
+          Mới Nhất
         </h1>
         <div class="list_product">
           <div
@@ -105,7 +105,7 @@
               </p>
             </div>
             <button class="add_cart">
-              Add to cart
+              Thêm vào giỏ hàng
             </button>
           </div>
         </div>

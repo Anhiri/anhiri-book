@@ -1,5 +1,5 @@
 <template>
-  <div id="about">
+  <div id="shipping">
     <h1 style="width: 100%; text-align: center; font-size: 35px; margin-top: 20px;   color: #61492e;">
       PHƯƠNG THỨC ĐÓNG GÓI / VẬN CHUYỂN
     </h1>
@@ -38,7 +38,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-#about{
+#shipping{
   display: flex;
   flex-wrap: wrap;
   margin: 68px 7% 10px 7% !important;

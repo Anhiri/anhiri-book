@@ -107,6 +107,14 @@ const router = new VueRouter({
         layout: 'full',
       },
     },
+    {
+      path: '/historyPayment/:id',
+      name: 'detailPayment',
+      component: () => import('../views/admin/DetailPayment.vue'),
+      meta: {
+        layout: 'full',
+      },
+    },
 
     // footer
     {
