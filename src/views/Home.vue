@@ -69,8 +69,11 @@
                 {{ new Intl.NumberFormat().format(seller.price) }}₫
               </p>
             </div>
-            <button class="add_cart">
-              Add to cart
+            <button
+              class="add_cart"
+              @click="addProductCart(seller)"
+            >
+              Thêm vào giỏ hàng
             </button>
           </div>
         </div>
@@ -104,7 +107,10 @@
                 {{ new Intl.NumberFormat().format(product.price) }}₫
               </p>
             </div>
-            <button class="add_cart">
+            <button
+              class="add_cart"
+              @click="addProductCart(product)"
+            >
               Thêm vào giỏ hàng
             </button>
           </div>
@@ -236,7 +242,7 @@ export default {
     this.getNewProducts()
   },
   methods: {
-    ...mapActions(['getProductBestSeller', 'getNewProducts']),
+    ...mapActions(['getProductBestSeller', 'getNewProducts', 'addCart']),
     openProductBestSeller(idProduct) {
       console.log(idProduct)
       // eslint-disable-next-line no-underscore-dangle
@@ -248,6 +254,15 @@ export default {
       // eslint-disable-next-line no-underscore-dangle
       this.newProducts.products._id = idProduct
       this.$router.push(`/product/${idProduct}`)
+    },
+    async addProductCart(product) {
+      console.log({ product })
+      const productCart = {
+        product,
+        quantify: 1,
+      }
+      console.log({ productCart })
+      await this.addCart(productCart)
     },
   },
 }

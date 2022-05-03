@@ -55,7 +55,7 @@
                   id="demo-sb"
                   v-model="product.quantify"
                   min="1"
-                  max="100"
+                  :max="product.product.total"
                   style="width:130px;"
                   @change="editCart(product.product._id, product.quantify)"
                 />
@@ -87,58 +87,72 @@
             background-color: #fff;
             border-radius: 7px;"
         >
-          <div class="subtotal">
-            <p>Tổng tiền</p>
+          <b-form-group
+            class="group"
+            label-cols="4"
+            label-cols-lg="2"
+            label-size="sm"
+            label="Tổng tiền"
+            label-for="input-sm"
+          >
             <p>{{ new Intl.NumberFormat().format(userInfos.cart.reduce((totalProduct, item) => totalProduct + (item.product.price * item.quantify), 0)) }}₫</p>
-          </div>
-          <div class="shipping">
-            <p>Vận chuyển</p>
+          </b-form-group>
+          <b-form-group
+            class="group"
+            label-cols="4"
+            label-cols-lg="2"
+            label-size="sm"
+            label="Vận chuyển"
+            label-for="input-sm"
+          >
             <p>Miễn phí</p>
-          </div>
+          </b-form-group>
+          <b-form-group
+            class="group"
+            label-cols="4"
+            label-cols-lg="2"
+            label-size="sm"
+            label="Tên"
+            label-for="input-sm"
+          >
+            <b-form-input
+              id="input-sm"
+              v-model="name"
+              size="sm"
+              placeholder="Nhập tên"
+            />
+          </b-form-group>
+          <b-form-group
+            class="group"
+            label-cols="4"
+            label-cols-lg="2"
+            label-size="sm"
+            label="Số điện thoại"
+            label-for="input-sm"
+          >
+            <b-form-input
+              id="input-sm"
+              v-model="phoneNumber"
+              size="sm"
+              placeholder="Nhập số điện thoại"
+            />
+          </b-form-group>
+          <b-form-group
+            class="group"
+            label-cols="4"
+            label-cols-lg="2"
+            label-size="sm"
+            label="Địa chỉ"
+            label-for="input-sm"
+          >
+            <b-form-input
+              id="input-sm"
+              v-model="address"
+              size="sm"
+              placeholder="Nhập địa chỉ giao hàng"
+            />
+          </b-form-group>
         </div>
-
-        <b-form-group
-          label-cols="4"
-          label-cols-lg="2"
-          label-size="sm"
-          label="Tên"
-          label-for="input-sm"
-        >
-          <b-form-input
-            id="input-sm"
-            v-model="name"
-            size="sm"
-            placeholder="Nhập tên"
-          />
-        </b-form-group>
-        <b-form-group
-          label-cols="4"
-          label-cols-lg="2"
-          label-size="sm"
-          label="Số điện thoại"
-          label-for="input-sm"
-        >
-          <b-form-input
-            id="input-sm"
-            v-model="phoneNumber"
-            size="sm"
-            placeholder="Nhập số điện thoại"
-          />
-        </b-form-group>
-        <b-form-group
-          label-cols="4"
-          label-cols-lg="2"
-          label-size="sm"
-          label="Địa chỉ"
-          label-for="input-sm"
-        >
-          <b-form-input
-            id="input-sm"
-            v-model="address"
-            size="sm"
-            placeholder="Nhập địa chỉ giao hàng"
-          />
-        </b-form-group>
 
         <b-button
           v-ripple.400="'rgba(255, 255, 255, 0.15)'"
@@ -283,6 +297,14 @@ p{
         margin: 30px 30px 0px 30px;
         display: flex;
         flex-wrap: wrap;
+        .group{
+          margin: 30px 50px;
+          width: 100%;
+          color: #61492e;
+          .input{
+            border: 1px solid #61492e;
+          }
+      }
       }
     }
   }
@@ -296,11 +318,19 @@ p{
     justify-content:space-between;
     width: 100%;
   }
-  .form-group{
-    margin: 7px 30px;
-    .col-form-label {
-      color: #61492e !important;
-    }
-  }
+  // .form-group{
+  //   margin: 7px 30px;
+  //   .col-form-label {
+  //     color: #61492e !important;
+  //   }
+  // }
+  // .group{
+  //         // margin: 30px 50px;
+  //         width: 100%;
+  //         color: #61492e;
+  //         .input{
+  //           border: 1px solid #61492e;
+  //         }
+  //     }
 }
 </style>

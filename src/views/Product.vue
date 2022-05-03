@@ -96,14 +96,15 @@
               Thêm vào giỏ hàng
             </button>
           </div>
-          <b-button
-            v-ripple.400="'rgba(255, 255, 255, 0.15)'"
-            variant="danger"
-            @click="loadMoreProducts()"
-          >
-            Xem thêm
-          </b-button>
         </div>
+        <b-button
+          v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+          variant="danger"
+          style="margin-left: 41%;"
+          @click="loadMoreProducts()"
+        >
+          Xem thêm
+        </b-button>
       </div>
 
       <!-- Phan trang -->
@@ -256,8 +257,11 @@ export default {
 
     async loadMoreProducts() {
       const oldProducts = [...this.listProduct.products]
-      this.page += 1
-      await this.getProductPage(this.page)
+      const curentPage = {
+        page: this.page + 1,
+        search: this.searchQuery,
+      }
+      await this.getProductPage(curentPage)
       this.listProduct.products = [...oldProducts, ...(this.listProduct.products || [])]
     },
   },

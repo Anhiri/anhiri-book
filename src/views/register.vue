@@ -14,7 +14,7 @@
           class="px-xl-2 mx-auto"
         >
           <b-card-title class="mb-1">
-            Sign Up
+            Đăng ký
           </b-card-title>
 
           <!-- form -->
@@ -28,7 +28,7 @@
             >
               <!-- username -->
               <b-form-group
-                label="Username"
+                label="Tên đăng nhập"
                 label-for="register-username"
               >
                 <validation-provider
@@ -73,7 +73,7 @@
               <!-- password -->
               <b-form-group
                 label-for="register-password"
-                label="Password"
+                label="Mật khẩu"
               >
                 <validation-provider
                   #default="{ errors }"
@@ -112,8 +112,8 @@
                   v-model="status"
                   name="checkbox-1"
                 >
-                  I agree to
-                  <b-link>privacy policy & terms</b-link>
+                  Tôi đồng ý với
+                  <b-link>chính sách của cửa hàng</b-link>
                 </b-form-checkbox>
               </b-form-group>
 
@@ -123,32 +123,16 @@
                 type="submit"
                 :disabled="invalid"
               >
-                Sign up
+                Đăng ký
               </b-button>
             </b-form>
           </validation-observer>
           <p class="text-center mt-2">
-            <span>Already have an account?</span>
+            <span>Bạn đã có tài khoản?</span>
             <router-link to="/login">
-              <span>&nbsp;Sign in instead</span>
+              <span>&nbsp;Đăng nhập</span>
             </router-link>
           </p>
-
-          <!-- divider -->
-          <div class="divider my-2">
-            <div class="divider-text">
-              or
-            </div>
-          </div>
-
-          <div class="auth-footer-btn d-flex justify-content-center">
-            <b-button
-              variant="facebook"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="FacebookIcon" />
-            </b-button>
-          </div>
         </b-col>
       </b-col>
     <!-- /Register-->
@@ -227,7 +211,7 @@ export default {
                 this.$toast({
                   component: ToastificationContent,
                   props: {
-                    title: 'Register Success',
+                    title: 'Đăng ký thành công!',
                     icon: 'checkSquareIcon',
                     variant: 'success',
                   },
@@ -237,16 +221,13 @@ export default {
                 this.$toast({
                   component: ToastificationContent,
                   props: {
-                    title: 'Register fail, Email already exists',
+                    title: 'Đăng ký thất bại, Email đã tồn tại',
                     icon: 'XSquareIcon',
                     variant: 'danger',
                   },
                 })
               }
             })
-            // .catch(error => {
-            //   this.$refs.registerForm.setErrors(error.response.data.error.message)
-            // })
         }
       })
     },

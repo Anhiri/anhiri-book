@@ -10,18 +10,8 @@
       class="breadcrumb-slash"
       style="margin: 15px 0px 0px 0px;"
     >
-      <b-breadcrumb-item @click="$router.push('/admin')">
-        <feather-icon
-          icon="HomeIcon"
-          size="15"
-          class="align-middle icon-shopping"
-        />
-      </b-breadcrumb-item>
-      <b-breadcrumb-item>
-        Admin
-      </b-breadcrumb-item>
       <b-breadcrumb-item active>
-        Home
+        Admin
       </b-breadcrumb-item>
     </b-breadcrumb>
     <div class="list-product">
@@ -38,7 +28,7 @@
           </b-input-group-prepend>
           <b-form-input
             v-model="searchQuery"
-            placeholder="Search..."
+            placeholder="Tìm kiếm..."
             @keyup="filteredChatsContacts"
             @keyup.enter="searchProduct(searchQuery)"
           />
@@ -74,13 +64,13 @@
               class="btn_product"
               @click="getProductUpate(product._id)"
             >
-              Update
+              Sửa
             </button>
             <button
               class="btn_product"
               @click="deleteProducts(product._id)"
             >
-              Delete
+              Xóa
             </button>
           </div>
         </div>
@@ -143,10 +133,10 @@ export default {
     },
   },
   created() {
-    this.getProduct()
+    this.getAllProduct()
   },
   methods: {
-    ...mapActions(['getProduct', 'getAllProduct', 'deleteProduct']),
+    ...mapActions(['getAllProduct', 'getAllProduct', 'deleteProduct']),
 
     searchFilterFunction(contact) {
       console.log(contact.title)
@@ -158,7 +148,7 @@ export default {
         this.listProduct.products = this.listProduct.products.filter(this.searchFilterFunction)
         console.log(this.listProduct)
       } else if (this.searchQuery.length === 0) {
-        this.getProduct()
+        this.getAllProduct()
       }
     },
     searchProduct(searchQuery) {

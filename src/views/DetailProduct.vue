@@ -47,6 +47,7 @@
         <b-button
           v-ripple.400="'rgba(234, 84, 85, 0.15)'"
           variant="outline-danger"
+          @click="addProductCart(currentProduct)"
         >
           Thêm vào giỏ hàng
         </b-button>
@@ -132,7 +133,16 @@ export default {
     // this.getProduct()
   },
   methods: {
-    ...mapActions(['getProduct']),
+    ...mapActions(['getProduct', 'addCart']),
+    async addProductCart(product) {
+      console.log({ product })
+      const productCart = {
+        product,
+        quantify: 1,
+      }
+      console.log({ productCart })
+      await this.addCart(productCart)
+    },
 
   },
 }

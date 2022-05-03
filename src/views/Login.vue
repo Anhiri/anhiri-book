@@ -14,10 +14,10 @@
           class="px-xl-2 mx-auto"
         >
           <b-card-title class="mb-1">
-            Sign In
+            Đăng nhập
           </b-card-title>
           <b-card-text class="mb-2">
-            Please sign-in to your account
+            Hãy đăng nhập tài khoản của bạn!
           </b-card-text>
 
           <!-- form -->
@@ -49,14 +49,14 @@
               <!-- forgot password -->
               <b-form-group style="border: none; padding: 0px; margin: 0px">
                 <div class="d-flex justify-content-between">
-                  <label for="login-password">Password</label>
+                  <label for="login-password">Mật khẩu</label>
                   <b-link :to="{ name: 'auth-forgot-password-v2' }">
-                    <small>Forgot Password?</small>
+                    <small>Quên mật khẩu?</small>
                   </b-link>
                 </div>
                 <validation-provider
                   #default="{ errors }"
-                  name="Password"
+                  name="password"
                   rules="required"
                 >
                   <b-input-group
@@ -91,7 +91,7 @@
                   v-model="status"
                   name="checkbox-1"
                 >
-                  Remember Me
+                  Nhớ mật khẩu
                 </b-form-checkbox>
               </b-form-group>
 
@@ -102,54 +102,19 @@
                 block
                 @click="validationForm"
               >
-                Sign in
+                Đăng nhập
               </b-button>
             </b-form>
           </validation-observer>
 
           <b-card-text class="text-center mt-2">
-            <span>New on our platform? </span>
+            <span>Bạn chưa có tài khoản? </span>
             <b-link :to="{ name: 'page-auth-register-v2' }">
               <router-link to="/register">
-                &nbsp;Create an account
+                &nbsp;Tạo tài khoản
               </router-link>
             </b-link>
           </b-card-text>
-
-          <!-- divider -->
-          <div class="divider my-2">
-            <div class="divider-text">
-              or
-            </div>
-          </div>
-
-          <!-- social buttons -->
-          <div class="auth-footer-btn d-flex justify-content-center">
-            <b-button
-              variant="facebook"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="FacebookIcon" />
-            </b-button>
-            <b-button
-              variant="twitter"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="TwitterIcon" />
-            </b-button>
-            <b-button
-              variant="google"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="MailIcon" />
-            </b-button>
-            <b-button
-              variant="github"
-              href="javascript:void(0)"
-            >
-              <feather-icon icon="GithubIcon" />
-            </b-button>
-          </div>
         </b-col>
       </b-col>
       <!-- /Login-->
@@ -244,7 +209,7 @@ export default {
               this.$toast({
                 component: ToastificationContent,
                 props: {
-                  title: 'Login Submitted',
+                  title: 'Đăng nhập thành công!',
                   icon: 'EditIcon',
                   variant: 'success',
                 },
@@ -260,7 +225,7 @@ export default {
               this.$toast({
                 component: ToastificationContent,
                 props: {
-                  title: 'Login failed',
+                  title: 'Đăng nhập thất bại!',
                   icon: 'EditIcon',
                   variant: 'warring',
                 },
@@ -276,4 +241,7 @@ export default {
 
 <style lang="scss">
 @import "@core/scss/vue/pages/page-auth.scss";
+.auth-inner{
+  justify-content:center;
+}
 </style>

@@ -11,17 +11,10 @@
       style="margin: 15px 0px 0px 0px;"
     >
       <b-breadcrumb-item @click="$router.push('/admin')">
-        <feather-icon
-          icon="HomeIcon"
-          size="15"
-          class="align-middle icon-shopping"
-        />
-      </b-breadcrumb-item>
-      <b-breadcrumb-item @click="$router.push('/admin')">
         Admin
       </b-breadcrumb-item>
       <b-breadcrumb-item active>
-        Update Product
+        Sửa sản phẩm
       </b-breadcrumb-item>
     </b-breadcrumb>
     <div class="list_input">
@@ -30,7 +23,7 @@
         label-cols="4"
         label-cols-lg="2"
         label-size="lg"
-        label="ID Product: "
+        label="Mã sản phẩm: "
         label-for="input-lg"
       >
         <b-form-input
@@ -38,7 +31,7 @@
           v-model="currentProduct.product_id"
           class="input"
           size="lg"
-          placeholder="ID Product"
+          placeholder="Nhập mã sản phẩm"
         />
       </b-form-group>
       <b-form-group
@@ -46,7 +39,7 @@
         label-cols="4"
         label-cols-lg="2"
         label-size="lg"
-        label="File: "
+        label="Chọn hình ảnh"
         label-for="input-lg"
       >
         <input
@@ -60,7 +53,7 @@
         label-cols="4"
         label-cols-lg="2"
         label-size="lg"
-        label="Title: "
+        label="Tên sản phẩm: "
         label-for="input-lg"
       >
         <b-form-input
@@ -68,7 +61,7 @@
           v-model="currentProduct.title"
           class="input"
           size="lg"
-          placeholder="Title Product"
+          placeholder="Nhập tên sản phẩm"
         />
       </b-form-group>
       <b-form-group
@@ -76,7 +69,7 @@
         label-cols="4"
         label-cols-lg="2"
         label-size="lg"
-        label="Author: "
+        label="Tác giả: "
         label-for="input-lg"
       >
         <b-form-input
@@ -84,7 +77,7 @@
           v-model="currentProduct.authorName"
           class="input"
           size="lg"
-          placeholder="Name Author"
+          placeholder="Nhập tên sản phẩm"
         />
       </b-form-group>
       <b-form-group
@@ -92,7 +85,7 @@
         label-cols="4"
         label-cols-lg="2"
         label-size="lg"
-        label="Price: "
+        label="Giá: "
         label-for="input-lg"
       >
         <b-form-input
@@ -100,7 +93,7 @@
           v-model="currentProduct.price"
           class="input"
           size="lg"
-          placeholder="Price Product"
+          placeholder="Nhập giá sản phẩm"
         />
       </b-form-group>
       <b-form-group
@@ -108,7 +101,7 @@
         label-cols="4"
         label-cols-lg="2"
         label-size="lg"
-        label="Description: "
+        label="Thông tin: "
         label-for="input-lg"
       >
         <b-form-input
@@ -116,7 +109,7 @@
           v-model="currentProduct.description"
           class="input"
           size="lg"
-          placeholder="Description"
+          placeholder="Nhập thông tin sản phẩm"
         />
       </b-form-group>
       <b-form-group
@@ -124,7 +117,7 @@
         label-cols="4"
         label-cols-lg="2"
         label-size="lg"
-        label="Content: "
+        label="Mô tả: "
         label-for="input-lg"
       >
         <b-form-input
@@ -132,7 +125,7 @@
           v-model="currentProduct.content"
           class="input"
           size="lg"
-          placeholder="Content"
+          placeholder="Nhập mô tả sản phẩm"
         />
       </b-form-group>
       <b-form-group
@@ -140,7 +133,7 @@
         label-cols="4"
         label-cols-lg="2"
         label-size="lg"
-        label="Total: "
+        label="Tổng số lượng: "
         label-for="input-lg"
       >
         <b-form-input
@@ -148,7 +141,7 @@
           v-model="currentProduct.total"
           class="input"
           size="lg"
-          placeholder="Total"
+          placeholder="Nhập tổng số lượng sản phẩm"
         />
       </b-form-group>
       <b-form-group
@@ -156,7 +149,7 @@
         label-cols="4"
         label-cols-lg="2"
         label-size="lg"
-        label="Category: "
+        label="Danh mục: "
         label-for="input-lg"
       >
         <select
@@ -185,7 +178,7 @@
           class="update_product"
           @click="$router.push('/admin')"
         >
-          Cancel
+          Trở lại
         </b-button>
         <b-button
           v-ripple.400="'rgba(255, 255, 255, 0.15)'"
@@ -194,7 +187,7 @@
           style="background-color: #61492e !important;"
           @click="handleUpdateProduct(currentProduct._id, currentProduct.product_id, currentProduct.title, currentProduct.authorName, currentProduct.price, currentProduct.description, currentProduct.content, currentProduct.images, currentProduct.category, currentProduct.total)"
         >
-          Update Product
+          Sửa sản phẩm
         </b-button>
       </div>
     </div>
@@ -210,7 +203,7 @@ import {
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
 import { mapActions, mapGetters } from 'vuex'
-import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
+// import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 
 export default {
   components: {
@@ -219,7 +212,7 @@ export default {
     BBreadcrumb,
     BBreadcrumbItem,
     BButton,
-    FeatherIcon,
+    // FeatherIcon,
   },
   directives: {
     Ripple,

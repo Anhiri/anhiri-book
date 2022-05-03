@@ -11,17 +11,10 @@
       style="margin: 15px 0px 0px 0px;"
     >
       <b-breadcrumb-item @click="$router.push('/admin')">
-        <feather-icon
-          icon="HomeIcon"
-          size="15"
-          class="align-middle icon-shopping"
-        />
-      </b-breadcrumb-item>
-      <b-breadcrumb-item @click="$router.push('/admin')">
         Admin
       </b-breadcrumb-item>
       <b-breadcrumb-item active>
-        Create Product
+        Danh mục
       </b-breadcrumb-item>
     </b-breadcrumb>
     <div class="handleCategoty">
@@ -35,22 +28,22 @@
           <b-col
             class="mb-3"
           >
-            <label for="input-valid1">Name Category:</label>
+            <label for="input-valid1">Tên danh mục:</label>
             <b-form-input
               id="input-valid1"
               v-model="name"
               :state="name.length > 0"
-              placeholder="Name Category"
+              placeholder="Nhập tên danh mục"
             />
             <b-form-valid-feedback
               tooltip
             >
-              Looks good!
+              Tên danh mục hợp lệ!
             </b-form-valid-feedback>
             <b-form-invalid-feedback
               tooltip
             >
-              Please provide category name.
+              Hãy nhập tên danh mục!
             </b-form-invalid-feedback>
           </b-col>
 
@@ -64,7 +57,7 @@
               variant="primary"
               @click="createCategory"
             >
-              Create
+              Tạo
             </b-button>
           </b-col>
         </b-form-row>
@@ -104,13 +97,13 @@
                       variant="danger"
                       @click="cancelEditCategory(category._id, category.name)"
                     >
-                      Cancel
+                      Trở về
                     </b-button>
                     <b-button
                       variant="primary"
                       type="submit"
                     >
-                      Update
+                      Sửa
                     </b-button>
                   </div>
                 </div>
@@ -124,14 +117,14 @@
                     style="margin:0px 10px;"
                     @click="editCategory(category._id)"
                   >
-                    Edit
+                    Sửa
                   </b-button>
                   <b-button
                     v-ripple.400="'rgba(255, 255, 255, 0.15)'"
                     variant="danger"
                     @click="handleDeleteCategory(category._id)"
                   >
-                    Delete
+                    Xóa
                   </b-button>
                 </div>
               </b-form>
@@ -146,14 +139,14 @@
                   style="margin:0px 10px;"
                   @click="editCategory(category._id)"
                 >
-                  Edit
+                  Sửa
                 </b-button>
                 <b-button
                   v-ripple.400="'rgba(255, 255, 255, 0.15)'"
                   variant="danger"
                   @click="handleDeleteCategory(category._id)"
                 >
-                  Delete
+                  Xóa
                 </b-button>
               </div>
             </div>
@@ -182,7 +175,7 @@ import {
   BInputGroup,
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
-import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
+// import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 
 export default ({
   components: {
@@ -198,7 +191,7 @@ export default ({
     BBreadcrumb,
     BBreadcrumbItem,
     BInputGroup,
-    FeatherIcon,
+    // FeatherIcon,
   },
   directives: {
     Ripple,

@@ -11,17 +11,10 @@
       style="margin-top: 15px;"
     >
       <b-breadcrumb-item @click="$router.push('/admin')">
-        <feather-icon
-          icon="HomeIcon"
-          size="15"
-          class="align-middle icon-shopping"
-        />
-      </b-breadcrumb-item>
-      <b-breadcrumb-item @click="$router.push('/admin')">
         Admin
       </b-breadcrumb-item>
       <b-breadcrumb-item active>
-        History Payment
+        Lịch sử đặt hàng
       </b-breadcrumb-item>
     </b-breadcrumb>
     <div class="content-history">
@@ -52,7 +45,7 @@
               style="color: blue;"
               @click="openDetailPayment(payment._id)"
             >
-              view
+              Xem
             </td>
           </tr>
         </tbody>
@@ -68,14 +61,14 @@ import {
 //   BTable,
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
-import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
+// import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 
 export default ({
   components: {
     BBreadcrumb,
     BBreadcrumbItem,
     // BTable,
-    FeatherIcon,
+    // FeatherIcon,
   },
   directives: {
     Ripple,

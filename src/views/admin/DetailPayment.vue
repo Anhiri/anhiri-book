@@ -11,20 +11,13 @@
       style="margin: 15px 0px 0px 0px;"
     >
       <b-breadcrumb-item @click="$router.push('/admin')">
-        <feather-icon
-          icon="HomeIcon"
-          size="15"
-          class="align-middle icon-shopping"
-        />
-      </b-breadcrumb-item>
-      <b-breadcrumb-item @click="$router.push('/admin')">
         Admin
       </b-breadcrumb-item>
       <b-breadcrumb-item @click="$router.push('/historyPayment')">
-        History Payment
+        Lịch sử đặt hàng
       </b-breadcrumb-item>
       <b-breadcrumb-item active>
-        Detail Payment
+        Chi tiết lịch sử
       </b-breadcrumb-item>
     </b-breadcrumb>
     <div class="detail-history">
@@ -55,6 +48,16 @@
           </tr>
         </tbody>
       </table>
+
+      <b-button
+        v-ripple.400="'rgba(255, 255, 255, 0.15)'"
+        variant="danger"
+        class="add_product"
+        style="margin-bottom: 30px; margin-left: 87%;"
+        @click="$router.push('/historyPayment')"
+      >
+        Trở về
+      </b-button>
     </div>
   </div>
 </template>
@@ -63,17 +66,19 @@ import { mapActions, mapGetters } from 'vuex'
 import {
   BBreadcrumb,
   BBreadcrumbItem,
+  BButton,
 //   BTable,
 } from 'bootstrap-vue'
 import Ripple from 'vue-ripple-directive'
-import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
+// import FeatherIcon from '@/@core/components/feather-icon/FeatherIcon.vue'
 
 export default ({
   components: {
     BBreadcrumb,
     BBreadcrumbItem,
+    BButton,
     // BTable,
-    FeatherIcon,
+    // FeatherIcon,
   },
   directives: {
     Ripple,
